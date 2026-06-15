@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aprende habilidades digitales, marketing digital, ventas y redes sociales con Matías. Capacitación, comunidad y herramientas para desarrollarte desde cero.">
+    <meta name="author" content="Matías">
+    <title>Matías - Habilidades Digitales y Negocios</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo-area" id="logo-link">
+                <img src="assets/logo.png" alt="Matías Logo" class="logo-img">
+                <span class="logo-text">Matías</span>
+            </a>
+            
+            <nav class="nav" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active">Inicio</a></li>
+                    <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                    <li><a href="#aprender" class="nav-link">Qué aprenderás</a></li>
+                    <li><a href="#beneficios" class="nav-link">Beneficios</a></li>
+                    <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                    <li><a href="#faq" class="nav-link">Preguntas</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20vi%20tu%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="btn btn-primary btn-sm btn-nav-cta">
+                    Escribime <i data-lucide="message-circle" class="icon-sm"></i>
+                </a>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Abrir Menú">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge-tag">
+                    <span class="badge-dot"></span>
+                    <span>Habilidades para el futuro</span>
+                </div>
+                <h1 class="hero-title">
+                    Aprendé habilidades digitales y descubrí nuevas <span class="text-gradient">oportunidades de ingresos</span> desde cualquier lugar.
+                </h1>
+                <p class="hero-subtitle">
+                    Capacitación, acompañamiento, comunidad y herramientas para que puedas desarrollarte en el mundo digital incluso si empezás desde cero.
+                </p>
+                <div class="hero-ctas">
+                    <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20capacitaciones." target="_blank" class="btn btn-primary" id="hero-cta-primary">
+                        Quiero más información <i data-lucide="arrow-right" class="btn-icon"></i>
+                    </a>
+                    <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20quiero%20hacerte%20una%20consulta%20por%20WhatsApp." target="_blank" class="btn btn-secondary" id="hero-cta-secondary">
+                        <i data-lucide="message-circle" class="btn-icon"></i> Escribirme por WhatsApp
+                    </a>
+                </div>
+                
+                <!-- Trust Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-num">+1,000</div>
+                        <div class="stat-label">Alumnos</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-label">Remoto</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-num">Acompañamiento</div>
+                        <div class="stat-label">Uno a Uno</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-media">
+                <div class="hero-image-wrapper">
+                    <div class="image-gradient-border">
+                        <img src="assets/hero.png" alt="Matías - Habilidades Digitales" class="hero-img-element">
+                    </div>
+                    <div class="floating-card card-1">
+                        <div class="card-icon"><i data-lucide="trending-up" class="color-green"></i></div>
+                        <div>
+                            <div class="card-title">Crecimiento Digital</div>
+                            <div class="card-desc">Resultados Reales</div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-icon"><i data-lucide="users" class="color-green"></i></div>
+                        <div>
+                            <div class="card-title">Comunidad Privada</div>
+                            <div class="card-desc">Soporte Continuo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Mí Section -->
+    <section class="about-section section-padding" id="sobre-mi">
+        <div class="container about-container">
+            <div class="about-media" data-animate="fade-right">
+                <div class="about-image-wrapper">
+                    <img src="assets/about.png" alt="Matías emprendiendo" class="about-img-element">
+                    <div class="about-accent-box"></div>
+                </div>
+            </div>
+            <div class="about-content" data-animate="fade-left">
+                <div class="section-tag">MI HISTORIA</div>
+                <h2 class="section-title">¿Quién es Matías?</h2>
+                <div class="about-text-blocks">
+                    <p class="about-lead">
+                        Mi nombre es Matías.
+                    </p>
+                    <p>
+                        Comencé buscando una forma de generar mis propios ingresos sin depender de mis padres para mis gastos personales y salidas. Sabía que el mundo estaba cambiando y que las oportunidades reales estaban en internet.
+                    </p>
+                    <p>
+                        A través de las habilidades digitales encontré una oportunidad para aprender, crecer y construir algo propio. Me sumergí en marketing, ventas y la creación de contenidos.
+                    </p>
+                    <p class="highlight-text">
+                        Hoy comparto esta información con otras personas que quieren desarrollarse en el mundo digital, ayudándoles a acelerar su proceso y evitar los errores que yo cometí.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qué vas a aprender Section -->
+    <section class="learn-section section-padding" id="aprender">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">EL CAMINO AL ÉXITO</div>
+                <h2 class="section-title">Qué vas a aprender</h2>
+                <p class="section-subtitle">
+                    Habilidades prácticas y altamente demandadas en el mercado actual para construir tu propio camino.
+                </p>
+            </div>
+            
+            <div class="learn-grid">
+                <!-- Card 1 -->
+                <div class="learn-card" data-animate="fade-up">
+                    <div class="learn-card-icon">
+                        <i data-lucide="megaphone"></i>
+                    </div>
+                    <h3 class="learn-card-title">Marketing digital</h3>
+                    <p class="learn-card-desc">
+                        Estrategias efectivas para posicionar marcas, captar la atención del público y dominar los canales digitales.
+                    </p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="learn-card" data-animate="fade-up" data-delay="100">
+                    <div class="learn-card-icon">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <h3 class="learn-card-title">Ventas</h3>
+                    <p class="learn-card-desc">
+                        Técnicas modernas de conversión, manejo de objeciones y persuasión ética para cerrar tratos exitosamente.
+                    </p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="learn-card" data-animate="fade-up" data-delay="200">
+                    <div class="learn-card-icon">
+                        <i data-lucide="share-2"></i>
+                    </div>
+                    <h3 class="learn-card-title">Redes sociales</h3>
+                    <p class="learn-card-desc">
+                        Gestión profesional de perfiles, algoritmos de Instagram y TikTok, y crecimiento de comunidades orgánicas.
+                    </p>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="learn-card" data-animate="fade-up" data-delay="300">
+                    <div class="learn-card-icon">
+                        <i data-lucide="message-square-text"></i>
+                    </div>
+                    <h3 class="learn-card-title">Comunicación con clientes</h3>
+                    <p class="learn-card-desc">
+                        Cómo redactar mensajes atractivos, brindar atención al cliente premium y fidelizar a tu audiencia a largo plazo.
+                    </p>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="learn-card" data-animate="fade-up" data-delay="400">
+                    <div class="learn-card-icon">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <h3 class="learn-card-title">Creación de contenido</h3>
+                    <p class="learn-card-desc">
+                        Producción de videos, redacción creativa (copywriting) y diseño básico enfocado en generar alto impacto visual.
+                    </p>
+                </div>
+                
+                <!-- Card 6 -->
+                <div class="learn-card" data-animate="fade-up" data-delay="500">
+                    <div class="learn-card-icon">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3 class="learn-card-title">Mentalidad emprendedora</h3>
+                    <p class="learn-card-desc">
+                        Hábitos de éxito, disciplina, enfoque a largo plazo y cómo superar el miedo al fracaso en entornos digitales.
+                    </p>
+                </div>
+                
+                <!-- Card 7 -->
+                <div class="learn-card learn-card-highlight" data-animate="fade-up" data-delay="600">
+                    <div class="learn-card-icon">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="learn-card-title">Herramientas digitales</h3>
+                    <p class="learn-card-desc">
+                        Dominio de plataformas de automatización, inteligencia artificial, diseño y administración del tiempo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios Section -->
+    <section class="benefits-section section-padding" id="beneficios">
+        <div class="benefits-bg-glow"></div>
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">¿POR QUÉ ELEGIRNOS?</div>
+                <h2 class="section-title">Beneficios exclusivos</h2>
+                <p class="section-subtitle">
+                    Diseñado para que estudies a tu ritmo, con la seguridad de estar acompañado en cada paso del proceso.
+                </p>
+            </div>
+            
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-item" data-animate="fade-up">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Acceso desde cualquier lugar</h3>
+                        <p class="benefit-desc">Estudiá y trabajá desde tu casa, un café o viajando. Solo necesitás conexión a internet.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="benefit-item" data-animate="fade-up" data-delay="100">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Comunidad de apoyo</h3>
+                        <p class="benefit-desc">Interactuá con otros emprendedores y estudiantes con tus mismos objetivos y ambiciones.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="benefit-item" data-animate="fade-up" data-delay="200">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Clases en vivo</h3>
+                        <p class="benefit-desc">Sesiones dinámicas para resolver dudas directamente, ver casos prácticos e interactuar en directo.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="benefit-item" data-animate="fade-up" data-delay="300">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Material de estudio</h3>
+                        <p class="benefit-desc">Guías, plantillas, tutoriales grabados y recursos listos para ser descargados y aplicados.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 5 -->
+                <div class="benefit-item" data-animate="fade-up" data-delay="400">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Acompañamiento</h3>
+                        <p class="benefit-desc">Resolución de dudas en canales privados para que nunca te quedes estancado en el proceso.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 6 -->
+                <div class="benefit-item" data-animate="fade-up" data-delay="500">
+                    <div class="benefit-checkbox">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <div class="benefit-info">
+                        <h3 class="benefit-title">Aplicación práctica en proyectos propios</h3>
+                        <p class="benefit-desc">No solo teoría. Vas a poder crear y lanzar tus propios modelos de negocio desde el primer día.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section class="testimonials-section section-padding" id="testimonios">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">CASOS DE ÉXITO</div>
+                <h2 class="section-title">Qué dicen mis alumnos</h2>
+                <p class="section-subtitle">
+                    Descubre cómo la capacitación y el acompañamiento constante transformaron sus habilidades y resultados económicos.
+                </p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card" data-animate="fade-up">
+                    <div class="testimonial-rating">
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Estaba cansado de ver tutoriales sueltos en YouTube que no me llevaban a ningún lado. El acompañamiento uno a uno de Matías y el orden de los módulos me permitieron conseguir mis primeros clientes de marketing digital en menos de un mes."
+                    </p>
+                    <div class="testimonial-user">
+                        <div class="user-avatar bg-gradient-1">FP</div>
+                        <div>
+                            <div class="user-name">Franco Pérez</div>
+                            <div class="user-role">Freelancer & Creador de Contenido</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card" data-animate="fade-up" data-delay="150">
+                    <div class="testimonial-rating">
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Quería empezar a vender online pero no tenía experiencia previa ni sabía usar herramientas digitales complejas. Las clases en vivo me dieron las bases y la comunidad me brindó el impulso para lanzar mi tienda de servicios digitales."
+                    </p>
+                    <div class="testimonial-user">
+                        <div class="user-avatar bg-gradient-2">MS</div>
+                        <div>
+                            <div class="user-name">Micaela Silva</div>
+                            <div class="user-role">Emprendedora Digital</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card" data-animate="fade-up" data-delay="300">
+                    <div class="testimonial-rating">
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                        <i data-lucide="star" class="star-filled"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Lo mejor es la practicidad del contenido. Matías te explica de forma clara lo que realmente funciona para vender más por redes sociales y automatizar tus mensajes. Es una inversión que recuperé rápidamente."
+                    </p>
+                    <div class="testimonial-user">
+                        <div class="user-avatar bg-gradient-3">JG</div>
+                        <div>
+                            <div class="user-name">Juan Gómez</div>
+                            <div class="user-role">Especialista en Ventas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section section-padding" id="faq">
+        <div class="container faq-container">
+            <div class="faq-intro" data-animate="fade-right">
+                <div class="section-tag">PREGUNTAS FRECUENTES</div>
+                <h2 class="section-title">Resolve tus dudas</h2>
+                <p>
+                    Aquí tienes respuestas a las consultas más comunes. Si tienes otra pregunta, no dudes en escribirme directamente.
+                </p>
+                <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20tengo%20una%20duda%20que%20no%20est%C3%A1%20en%20las%20preguntas%20frecuentes." target="_blank" class="btn btn-secondary mt-lg">
+                    Preguntar por WhatsApp
+                </a>
+            </div>
+            
+            <div class="faq-accordion" data-animate="fade-left">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Necesito experiencia previa?</span>
+                        <span class="faq-icon-wrapper"><i data-lucide="chevron-down" class="faq-chevron"></i></span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>No, para nada. El programa está diseñado para guiarte paso a paso desde el nivel absoluto cero. Comenzaremos con conceptos básicos y avanzaremos de forma gradual hasta las estrategias más avanzadas de ventas y marketing digital.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Puedo hacerlo desde mi celular?</span>
+                        <span class="faq-icon-wrapper"><i data-lucide="chevron-down" class="faq-chevron"></i></span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>¡Sí! Gran parte del material de estudio, las clases en vivo y el soporte en comunidad se consumen perfectamente desde tu celular. Para aplicar ciertas herramientas o configuraciones de creación de contenido y marketing, una computadora te dará mayor comodidad, pero muchas personas han iniciado únicamente con su celular.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Cuánto tiempo debo dedicarle?</span>
+                        <span class="faq-icon-wrapper"><i data-lucide="chevron-down" class="faq-chevron"></i></span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Lo ideal es dedicarle entre 1 a 2 horas diarias. Dado que el contenido es flexible y puedes acceder en el horario que prefieras, podrás adaptarlo a tu rutina actual sin problemas, ya sea que trabajes o estudies.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Cómo funciona?</span>
+                        <span class="faq-icon-wrapper"><i data-lucide="chevron-down" class="faq-chevron"></i></span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Al inscribirte, recibes acceso a nuestra plataforma privada de estudio con el material organizado. También se te añade al canal de comunidad y soporte uno a uno. Asistirás a las clases en vivo grupales y contarás con mi acompañamiento continuo para revisar tus avances y aclarar dudas en tiempo real.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section class="contact-section section-padding" id="contacto">
+        <div class="container contact-container">
+            <div class="contact-card" data-animate="fade-up">
+                <div class="contact-grid">
+                    <div class="contact-info-panel">
+                        <h3 class="contact-panel-title">Hablemos</h3>
+                        <p class="contact-panel-desc">
+                            Completá el formulario para recibir información personalizada sobre cómo empezar tu desarrollo digital.
+                        </p>
+                        
+                        <div class="contact-info-details">
+                            <div class="contact-detail-item">
+                                <div class="detail-icon"><i data-lucide="phone"></i></div>
+                                <div>
+                                    <div class="detail-label">WhatsApp Directo</div>
+                                    <div class="detail-value">092707489</div>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item">
+                                <div class="detail-icon"><i data-lucide="map-pin"></i></div>
+                                <div>
+                                    <div class="detail-label">Ubicación</div>
+                                    <div class="detail-value">Online / Remoto</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-panel">
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" id="name" name="name" placeholder="Tu nombre completo" required autocomplete="name">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="whatsapp">WhatsApp</label>
+                                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 092707489" required autocomplete="tel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Correo electrónico</label>
+                                    <input type="email" id="email" name="email" placeholder="Tu email principal" required autocomplete="email">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Mensaje</label>
+                                <textarea id="message" name="message" rows="4" placeholder="¿Cómo te puedo ayudar hoy?" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full" id="btn-submit-form">
+                                Enviar mensaje <i data-lucide="send" class="btn-icon"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloque de Conversión Final (Cierre / Pagos) -->
+    <section class="cta-conversion-section">
+        <div class="cta-glow-element"></div>
+        <div class="container text-center">
+            <div class="cta-conversion-box" data-animate="zoom-in">
+                <div class="section-tag mb-sm">EL MOMENTO ES AHORA</div>
+                <h2 class="cta-conversion-title">¿Listo para transformar tu futuro financiero?</h2>
+                <p class="cta-conversion-subtitle text-slate-300">
+                    Da el paso definitivo hoy mismo. El cupo es limitado para garantizar el acompañamiento y soporte personalizado.
+                </p>
+                <div class="cta-conversion-action">
+                    <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20quiero%20recibir%20m%C3%A1s%20informaci%C3%B3n%20para%20comenzar." target="_blank" class="btn btn-primary btn-lg btn-glow pulse-animation">
+                        QUIERO EMPEZAR <i data-lucide="rocket" class="btn-icon-right"></i>
+                    </a>
+                </div>
+                <div class="cta-conversion-whatsapp-label">
+                    <i data-lucide="message-circle" class="icon-sm color-green inline-icon"></i> Abrirá un chat directo de WhatsApp con Matías
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <a href="#" class="logo-area">
+                    <img src="assets/logo.png" alt="Matías Logo" class="logo-img">
+                    <span class="logo-text">Matías</span>
+                </a>
+                <p class="footer-brand-desc">
+                    Capacitando a las próximas generaciones de emprendedores y profesionales digitales.
+                </p>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Matías. Todos los derechos reservados. Desarrollado con pasión.</p>
+                <div class="footer-links">
+                    <a href="#sobre-mi">Sobre Mí</a>
+                    <a href="#aprender">Qué aprenderás</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20tengo%20una%20consulta." target="_blank" class="floating-whatsapp" aria-label="Escribir por WhatsApp">
+        <i data-lucide="message-circle" class="whatsapp-float-icon"></i>
+    </a>
+
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
