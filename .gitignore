@@ -1,0 +1,7 @@
+# Windows temp files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# System logs
+*.log
