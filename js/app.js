@@ -47,6 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Seed users database
     if (!localStorage.getItem('matias_users')) {
         localStorage.setItem('matias_users', JSON.stringify(defaultUsers));
+    } else {
+        // Ensure admin account always exists (even on updates/migrations)
+        const existingUsers = getUsers();
+        const adminExists = existingUsers.some(u => u.email === 'matias20090714@gmail.com' && u.role === 'admin');
+        if (!adminExists) {
+            existingUsers.unshift(defaultUsers[0]); // Add admin at top
+            saveUsers(existingUsers);
+        }
     }
 
     // Initialize notifications storage
@@ -648,12 +656,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateHeaderAuthActions = () => {
         const currentUser = getCurrentUser();
         const adminBtn = document.getElementById('admin-panel-btn');
+        const loginBtn = document.getElementById('nav-login-btn');
+        const registerBtn = document.getElementById('nav-register-btn');
+        const userInfo = document.getElementById('nav-user-info');
+        const userNameEl = document.getElementById('nav-user-name');
         
         // Admin Panel header button
         if (currentUser && currentUser.role === 'admin') {
             adminBtn.classList.remove('hidden');
         } else {
             adminBtn.classList.add('hidden');
+        }
+
+        // Show/hide auth buttons vs user greeting
+        if (currentUser) {
+            if (loginBtn) loginBtn.classList.add('hidden');
+            if (registerBtn) registerBtn.classList.add('hidden');
+            if (userInfo) userInfo.classList.remove('hidden');
+            if (userNameEl) userNameEl.textContent = 'Hola, ' + currentUser.name.split(' ')[0];
+        } else {
+            if (loginBtn) loginBtn.classList.remove('hidden');
+            if (registerBtn) registerBtn.classList.remove('hidden');
+            if (userInfo) userInfo.classList.add('hidden');
         }
 
         // Adjust navbar highlight
@@ -950,65 +974,66 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show daily content idea
         renderDailyContentIdea();
 
+        // Core Seeded Ebook - always available (no DB required)
+        const seededEbook = {
+            id: ebookData.id,
+            title: ebookData.title,
+            description: ebookData.description,
+            fileName: ebookData.fileName,
+            uploadDate: ebookData.uploadDate,
+            isEbook: true
+        };
+
+        let uploadedPDFs = [];
         try {
-            // Get PDFs from IndexedDB
-            const pdfs = await window.pdfDb.getAllPDFs();
-            
-            // Core Seeded Ebook is managed programmatically to ensure it is always available
-            const seededEbook = {
-                id: ebookData.id,
-                title: ebookData.title,
-                description: ebookData.description,
-                fileName: ebookData.fileName,
-                uploadDate: ebookData.uploadDate,
-                isEbook: true
-            };
+            // Try to get PDFs from IndexedDB (may fail on file:// protocol)
+            if (window.pdfDb && window.pdfDb.getAllPDFs) {
+                uploadedPDFs = await window.pdfDb.getAllPDFs();
+            }
+        } catch (err) {
+            console.warn('IndexedDB not available (file:// protocol). Only showing built-in e-book.', err);
+        }
 
-            const allPDFs = [seededEbook, ...pdfs];
-            
-            // Filter by search query
-            const filteredPDFs = allPDFs.filter(pdf => 
-                pdf.title.toLowerCase().includes(query.toLowerCase()) || 
-                pdf.description.toLowerCase().includes(query.toLowerCase())
-            );
+        const allPDFs = [seededEbook, ...uploadedPDFs];
+        
+        // Filter by search query
+        const filteredPDFs = allPDFs.filter(pdf => 
+            pdf.title.toLowerCase().includes(query.toLowerCase()) || 
+            pdf.description.toLowerCase().includes(query.toLowerCase())
+        );
 
-            if (filteredPDFs.length === 0) {
-                emptyEl.classList.remove('hidden');
-                return;
+        if (filteredPDFs.length === 0) {
+            emptyEl.classList.remove('hidden');
+            return;
+        }
+
+        emptyEl.classList.add('hidden');
+
+        filteredPDFs.forEach(pdf => {
+            const card = document.createElement('div');
+            card.className = 'pdf-card';
+            if (pdf.isEbook) {
+                card.style.border = '1px solid rgba(0, 200, 83, 0.3)';
+                card.style.background = 'linear-gradient(135deg, var(--color-bg-card) 0%, rgba(0, 200, 83, 0.02) 100%)';
             }
 
-            emptyEl.classList.add('hidden');
-
-            filteredPDFs.forEach(pdf => {
-                const card = document.createElement('div');
-                card.className = 'pdf-card';
-                if (pdf.isEbook) {
-                    card.style.border = '1px solid rgba(0, 200, 83, 0.3)';
-                    card.style.background = 'linear-gradient(135deg, var(--color-bg-card) 0%, rgba(0, 200, 83, 0.02) 100%)';
-                }
-
-                card.innerHTML = `
-                    <div class="pdf-card-icon-area" ${pdf.isEbook ? 'style="background-color:rgba(0,200,83,0.15);"' : ''}>
-                        <i data-lucide="${pdf.isEbook ? 'book-open' : 'file-text'}"></i>
-                    </div>
-                    <h3 class="pdf-card-title">${pdf.title} ${pdf.isEbook ? '<span class="badge-status aprobado" style="font-size:0.65rem; padding: 2px 6px; margin-left:6px; vertical-align:middle;">E-Book</span>' : ''}</h3>
-                    <p class="pdf-card-desc">${pdf.description}</p>
-                    <div class="pdf-card-meta">
-                        <span>Autor: ${pdf.isEbook ? ebookData.author : 'Admin'}</span>
-                        <span>${pdf.isEbook ? 'Interactivo' : 'PDF'}</span>
-                    </div>
-                    <a href="#plataforma/pdf?id=${pdf.id}" class="btn btn-primary btn-sm" style="margin-top:10px; width:100%;">
-                        ${pdf.isEbook ? 'Leer E-Book' : 'Ver Recurso'} <i data-lucide="eye" class="icon-sm"></i>
-                    </a>
-                `;
-                grid.appendChild(card);
-            });
-            renderIcons();
-
-        } catch (err) {
-            console.error('Error fetching PDFs for library:', err);
-            grid.innerHTML = '<p class="text-red">Error al cargar la biblioteca.</p>';
-        }
+            card.innerHTML = `
+                <div class="pdf-card-icon-area" ${pdf.isEbook ? 'style="background-color:rgba(0,200,83,0.15);"' : ''}>
+                    <i data-lucide="${pdf.isEbook ? 'book-open' : 'file-text'}"></i>
+                </div>
+                <h3 class="pdf-card-title">${pdf.title} ${pdf.isEbook ? '<span class="badge-status aprobado" style="font-size:0.65rem; padding: 2px 6px; margin-left:6px; vertical-align:middle;">E-Book</span>' : ''}</h3>
+                <p class="pdf-card-desc">${pdf.description}</p>
+                <div class="pdf-card-meta">
+                    <span>Autor: ${pdf.isEbook ? ebookData.author : 'Admin'}</span>
+                    <span>${pdf.isEbook ? 'Interactivo' : 'PDF'}</span>
+                </div>
+                <a href="#plataforma/pdf?id=${pdf.id}" class="btn btn-primary btn-sm" style="margin-top:10px; width:100%;">
+                    ${pdf.isEbook ? 'Leer E-Book' : 'Ver Recurso'} <i data-lucide="eye" class="icon-sm"></i>
+                </a>
+            `;
+            grid.appendChild(card);
+        });
+        renderIcons();
     };
 
     // ==========================================
@@ -1613,4 +1638,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Call updateHeaderAuthActions on load to reflect auth state
+    updateHeaderAuthActions();
+
 });
+
+// ==========================================
+// GLOBAL FUNCTIONS (for onclick HTML attributes)
+// ==========================================
+function openLoginModal() {
+    window.location.hash = '#plataforma/login';
+}
+
+function openRegisterModal() {
+    window.location.hash = '#plataforma/registro';
+}
+
+function logoutUser() {
+    if (window.currentPdfBlobUrl) {
+        URL.revokeObjectURL(window.currentPdfBlobUrl);
+        window.currentPdfBlobUrl = null;
+    }
+    localStorage.removeItem('matias_currentUser');
+    window.location.hash = '#';
+    // Reload to refresh state
+    setTimeout(() => location.reload(), 100);
+}
