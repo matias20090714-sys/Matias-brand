@@ -43,7 +43,21 @@
             
             <div class="nav-actions">
                 <a href="#admin" class="btn btn-secondary btn-sm hidden" id="admin-panel-btn">Panel de Administración</a>
-                <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20vi%20tu%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="btn btn-primary btn-sm btn-nav-cta">
+                <!-- Auth buttons (shown when not logged in) -->
+                <a href="#" class="btn btn-outline btn-sm" id="nav-login-btn" onclick="openLoginModal(); return false;">
+                    <i data-lucide="log-in" class="icon-sm"></i> Iniciar Sesión
+                </a>
+                <a href="#" class="btn btn-primary btn-sm" id="nav-register-btn" onclick="openRegisterModal(); return false;">
+                    <i data-lucide="user-plus" class="icon-sm"></i> Registrarse
+                </a>
+                <!-- User greeting (shown when logged in) -->
+                <div class="nav-user-info hidden" id="nav-user-info">
+                    <span class="nav-user-name" id="nav-user-name"></span>
+                    <a href="#" class="btn btn-outline btn-sm" id="nav-logout-btn" onclick="logoutUser(); return false;">
+                        <i data-lucide="log-out" class="icon-sm"></i> Salir
+                    </a>
+                </div>
+                <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20vi%20tu%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="btn btn-whatsapp btn-sm btn-nav-cta">
                     Escribime <i data-lucide="message-circle" class="icon-sm"></i>
                 </a>
                 <button class="nav-toggle" id="nav-toggle" aria-label="Abrir Menú">
@@ -695,6 +709,34 @@
 
             <!-- Vista 4: Biblioteca de Recursos (PDFs) -->
             <div id="library-view" class="platform-view hidden">
+
+                <!-- Bienvenida / Presentación de Matías -->
+                <div class="platform-welcome-banner">
+                    <div class="platform-welcome-inner">
+                        <div class="platform-mentor-avatar">
+                            <img src="assets/about.png" alt="Matías" class="platform-mentor-img">
+                        </div>
+                        <div class="platform-mentor-info">
+                            <span class="platform-mentor-tag">Tu Mentor</span>
+                            <h2 class="platform-mentor-name">¿Quién es Matías?</h2>
+                            <p class="platform-mentor-bio">
+                                Mi nombre es <strong>Matías</strong> y ayudo a personas a aprender habilidades digitales: marketing, ventas, redes sociales, creación de contenido y negocios online. 
+                                Comencé desde cero buscando generar mis propios ingresos y hoy comparto ese camino con vos para que lo hagas más rápido y sin los errores que yo cometí.
+                            </p>
+                            <div class="platform-mentor-stats">
+                                <div class="pm-stat"><span class="pm-stat-num">+1,000</span><span class="pm-stat-label">Alumnos</span></div>
+                                <div class="pm-stat-divider"></div>
+                                <div class="pm-stat"><span class="pm-stat-num">100%</span><span class="pm-stat-label">Remoto</span></div>
+                                <div class="pm-stat-divider"></div>
+                                <div class="pm-stat"><span class="pm-stat-num">1 a 1</span><span class="pm-stat-label">Acompañamiento</span></div>
+                            </div>
+                            <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20soy%20miembro%20de%20tu%20plataforma%20y%20quiero%20consultarte%20algo." target="_blank" class="btn btn-primary btn-sm" style="margin-top:16px;">
+                                <i data-lucide="message-circle" class="icon-sm"></i> Escribirme por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Idea de Contenido del Día -->
                 <div class="content-idea-card hidden" id="daily-content-idea-container">
                     <!-- Dynamic daily content idea will be rendered here -->
