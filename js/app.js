@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Initialize Supabase if keys are configured
+    let supabase = null;
+    if (window.SUPABASE_URL && window.SUPABASE_KEY) {
+        supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);
+        console.log("Supabase inicializado correctamente.");
+    }
+
     // ==========================================
     // DATA SEEDING (LOCALSTORAGE)
     // ==========================================
@@ -808,13 +815,29 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = '#plataforma/login';
     };
 
-    const spaRouter = () => {
+    const spaRouter = async () => {
         const hash = window.location.hash || '#';
         const landingContent = document.getElementById('landing-content');
         const platformContent = document.getElementById('platform-content');
         const floatWa = document.querySelector('.floating-whatsapp');
         
-        const currentUser = getCurrentUser();
+        let currentUser = getCurrentUser();
+
+        // Si Supabase está configurado y hay un usuario logueado, traemos su estado fresco de la base de datos
+        if (currentUser && supabase) {
+            try {
+                const { data, error } = await supabase.from('matias_users')
+                    .select('*')
+                    .eq('email', currentUser.email.toLowerCase())
+                    .single();
+                if (data) {
+                    currentUser = data;
+                    setCurrentUser(data); // Sincroniza localmente
+                }
+            } catch (e) {
+                console.error("Error al refrescar estado del usuario desde Supabase:", e);
+            }
+        }
 
         // 1. Landing Page routing
         if (hash === '#' || hash === '') {
@@ -865,7 +888,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showDeniedView('Tu solicitud de registro ha sido rechazada por el administrador.');
             } else {
                 showView('library-view');
-                loadLibraryPDFs();
+                await loadLibraryPDFs();
             }
         } else if (hash.startsWith('#plataforma/pdf')) {
             if (!currentUser) {
@@ -876,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const params = new URLSearchParams(hash.substring(hash.indexOf('?')));
                 const pdfId = params.get('id');
                 showView('pdf-viewer-view');
-                loadPDFInViewer(pdfId);
+                await loadPDFInViewer(pdfId);
             }
         } else if (hash === '#admin') {
             if (!currentUser) {
@@ -885,7 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showDeniedView('Acceso denegado. Esta sección es exclusiva para el administrador.');
             } else {
                 showView('admin-view');
-                loadAdminPanel();
+                await loadAdminPanel();
             }
         } else {
             window.location.hash = '#';
@@ -895,8 +918,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHeaderAuthActions();
     };
 
-    window.addEventListener('hashchange', spaRouter);
-    window.addEventListener('load', spaRouter);
+    window.addEventListener('hashchange', () => { spaRouter(); });
+    window.addEventListener('load', () => { spaRouter(); });
 
     // ==========================================
     // AUTHENTICATION FORMS LOGIC
@@ -926,13 +949,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (formLogin) {
-        formLogin.addEventListener('submit', (e) => {
+        formLogin.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value.trim();
 
-            const users = getUsers();
-            const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+            let matchedUser = null;
+            if (supabase) {
+                try {
+                    const { data, error } = await supabase.from('matias_users')
+                        .select('*')
+                        .eq('email', email.toLowerCase())
+                        .eq('password', password)
+                        .single();
+                    if (data) matchedUser = data;
+                } catch (err) {
+                    console.error("Supabase Login Error:", err);
+                }
+            } else {
+                const users = getUsers();
+                matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+            }
 
             if (!matchedUser) {
                 alert('Correo electrónico o contraseña incorrectos.');
@@ -946,15 +983,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (formRegister) {
-        formRegister.addEventListener('submit', (e) => {
+        formRegister.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('register-name').value.trim();
             const email = document.getElementById('register-email').value.trim();
             const whatsapp = document.getElementById('register-whatsapp').value.trim();
             const password = document.getElementById('register-password').value.trim();
 
-            const users = getUsers();
-            const emailExists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+            let emailExists = false;
+            if (supabase) {
+                try {
+                    const { data, error } = await supabase.from('matias_users')
+                        .select('email')
+                        .eq('email', email.toLowerCase());
+                    if (data && data.length > 0) emailExists = true;
+                } catch (err) {
+                    console.error("Supabase check email error:", err);
+                }
+            } else {
+                const users = getUsers();
+                emailExists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+            }
 
             if (emailExists) {
                 alert('El correo electrónico ya se encuentra registrado.');
@@ -962,6 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const newUser = {
+                id: 'user_' + Date.now(),
                 name,
                 email,
                 whatsapp,
@@ -971,20 +1021,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 regDate: new Date().toLocaleDateString('es-ES')
             };
 
-            users.push(newUser);
-            saveUsers(users);
+            if (supabase) {
+                try {
+                    const { error } = await supabase.from('matias_users').insert([newUser]);
+                    if (error) {
+                        alert('Error al registrar en la nube: ' + error.message);
+                        return;
+                    }
+                } catch (err) {
+                    console.error("Supabase insert user error:", err);
+                    alert('Error de conexión con la base de datos en la nube.');
+                    return;
+                }
+            } else {
+                const users = getUsers();
+                users.push(newUser);
+                saveUsers(users);
+            }
+            
             setCurrentUser(newUser);
 
-            const notifications = getNotifications();
-            notifications.unshift({
+            const newNotif = {
                 id: 'notif_' + Date.now(),
                 name,
                 email,
                 whatsapp,
                 regDate: newUser.regDate,
                 read: false
-            });
-            saveNotifications(notifications);
+            };
+
+            if (supabase) {
+                try {
+                    await supabase.from('matias_notifications').insert([newNotif]);
+                } catch (err) {
+                    console.error("Supabase insert notification error:", err);
+                }
+            } else {
+                const notifications = getNotifications();
+                notifications.unshift(newNotif);
+                saveNotifications(notifications);
+            }
 
             formRegister.reset();
             window.location.hash = '#plataforma/espera';
@@ -1073,12 +1149,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let uploadedPDFs = [];
         try {
-            // Try to get PDFs from IndexedDB (may fail on file:// protocol)
-            if (window.pdfDb && window.pdfDb.getAllPDFs) {
+            if (supabase) {
+                const { data, error } = await supabase.from('matias_pdfs').select('*');
+                if (error) throw error;
+                uploadedPDFs = data || [];
+            } else if (window.pdfDb && window.pdfDb.getAllPDFs) {
                 uploadedPDFs = await window.pdfDb.getAllPDFs();
             }
         } catch (err) {
-            console.warn('IndexedDB not available (file:// protocol). Only showing built-in e-book.', err);
+            console.warn('Error loading PDFs:', err);
         }
 
         const allPDFs = [seededEbook, ...uploadedPDFs];
@@ -1154,7 +1233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 2. Otherwise load standard PDF from IndexedDB
+        // 2. Otherwise load standard PDF from Supabase or IndexedDB
         container.classList.remove('hidden');
         ebookContainer.classList.add('hidden');
 
@@ -1166,7 +1245,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         try {
-            const pdf = await window.pdfDb.getPDF(pdfId);
+            let pdf = null;
+            if (supabase) {
+                const { data, error } = await supabase.from('matias_pdfs').select('*').eq('id', pdfId).single();
+                if (error) throw error;
+                pdf = data;
+            } else {
+                pdf = await window.pdfDb.getPDF(pdfId);
+            }
+
             if (!pdf) {
                 container.innerHTML = `
                     <div class="pdf-viewer-error">
@@ -1178,17 +1265,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             titleEl.textContent = pdf.title;
-            const blobUrl = URL.createObjectURL(pdf.blob);
-            window.currentPdfBlobUrl = blobUrl;
+            const pdfUrl = supabase ? pdf.fileUrl : URL.createObjectURL(pdf.blob);
+            if (!supabase) {
+                window.currentPdfBlobUrl = pdfUrl;
+            }
 
             // Embed PDF, disabling toolbar to discourage downloads
             container.innerHTML = `
-                <object data="${blobUrl}#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%">
-                    <embed src="${blobUrl}#toolbar=0&navpanes=0" type="application/pdf" />
+                <object data="${pdfUrl}#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%">
+                    <embed src="${pdfUrl}#toolbar=0&navpanes=0" type="application/pdf" />
                     <div class="pdf-viewer-error">
                         <i data-lucide="file-warning" style="width:40px;height:40px;color:var(--color-primary);margin-bottom:15px;"></i>
                         <p>Tu navegador no soporta la visualización integrada de PDFs.</p>
-                        <a href="${blobUrl}" target="_blank" class="btn btn-primary btn-sm mt-lg">Abrir en nueva pestaña</a>
+                        <a href="${pdfUrl}" target="_blank" class="btn btn-primary btn-sm mt-lg">Abrir en nueva pestaña</a>
                     </div>
                 </object>
             `;
@@ -1199,7 +1288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.innerHTML = `
                 <div class="pdf-viewer-error">
                     <h3 class="text-red">Error de base de datos</h3>
-                    <p>No se pudo recuperar el PDF de la base de datos local.</p>
+                    <p>No se pudo recuperar el PDF de la base de datos.</p>
                 </div>
             `;
         }
@@ -1262,7 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminTabContents = document.querySelectorAll('.admin-tab-content');
 
     adminTabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const targetId = btn.getAttribute('data-target');
             
             adminTabBtns.forEach(b => b.classList.remove('active'));
@@ -1273,24 +1362,48 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetEl) targetEl.classList.add('active');
             
             if (targetId === 'admin-tab-notifications') {
-                const notifications = getNotifications();
-                notifications.forEach(n => n.read = true);
-                saveNotifications(notifications);
-                updateAdminNotificationBadges();
+                if (supabase) {
+                    try {
+                        const { error } = await supabase.from('matias_notifications')
+                            .update({ read: true })
+                            .eq('read', false);
+                        if (error) throw error;
+                    } catch (err) {
+                        console.error("Error marking notifications as read:", err);
+                    }
+                } else {
+                    const notifications = getNotifications();
+                    notifications.forEach(n => n.read = true);
+                    saveNotifications(notifications);
+                }
+                await updateAdminNotificationBadges();
+                await loadAdminNotifications();
             }
         });
     });
 
-    const loadAdminPanel = () => {
-        updateAdminStats();
-        loadAdminUsersTable();
-        loadAdminPDFsTable();
-        loadAdminNotifications();
-        updateAdminNotificationBadges();
+    const loadAdminPanel = async () => {
+        await updateAdminStats();
+        await loadAdminUsersTable();
+        await loadAdminPDFsTable();
+        await loadAdminNotifications();
+        await updateAdminNotificationBadges();
     };
 
-    const updateAdminStats = () => {
-        const users = getUsers().filter(u => u.role !== 'admin');
+    const updateAdminStats = async () => {
+        let users = [];
+        if (supabase) {
+            try {
+                const { data, error } = await supabase.from('matias_users').select('*').neq('role', 'admin');
+                if (error) throw error;
+                users = data || [];
+            } catch (err) {
+                console.error("Error fetching admin stats from Supabase:", err);
+            }
+        } else {
+            users = getUsers().filter(u => u.role !== 'admin');
+        }
+
         const total = users.length;
         const pending = users.filter(u => u.status === 'pendiente').length;
         const approved = users.filter(u => u.status === 'aprobado').length;
@@ -1300,13 +1413,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('stat-approved-users').textContent = approved;
     };
 
-    const updateAdminNotificationBadges = () => {
-        const notifications = getNotifications();
-        const unreadCount = notifications.filter(n => !n.read).length;
-        
+    const updateAdminNotificationBadges = async () => {
+        let unreadCount = 0;
+        let pendingCount = 0;
+
+        if (supabase) {
+            try {
+                const { count: unread, error: errNotif } = await supabase
+                    .from('matias_notifications')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('read', false);
+                if (errNotif) throw errNotif;
+                unreadCount = unread || 0;
+
+                const { count: pending, error: errUsers } = await supabase
+                    .from('matias_users')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'pendiente')
+                    .neq('role', 'admin');
+                if (errUsers) throw errUsers;
+                pendingCount = pending || 0;
+            } catch (err) {
+                console.error("Error fetching badges from Supabase:", err);
+            }
+        } else {
+            const notifications = getNotifications();
+            unreadCount = notifications.filter(n => !n.read).length;
+            pendingCount = getUsers().filter(u => u.status === 'pendiente').length;
+        }
+
         const tabBadge = document.getElementById('admin-notif-badge');
         const usersBadge = document.getElementById('admin-users-badge');
-        const pendingCount = getUsers().filter(u => u.status === 'pendiente').length;
 
         if (unreadCount > 0) {
             tabBadge.textContent = unreadCount;
@@ -1333,19 +1470,30 @@ document.addEventListener('DOMContentLoaded', () => {
         filterStatusSelect.addEventListener('change', loadAdminUsersTable);
     }
 
-    function loadAdminUsersTable() {
+    async function loadAdminUsersTable() {
         const query = searchUsersInput ? searchUsersInput.value.trim().toLowerCase() : '';
         const statusFilter = filterStatusSelect ? filterStatusSelect.value : 'all';
 
         const tableBody = document.getElementById('users-table-body');
         tableBody.innerHTML = '';
 
-        const users = getUsers().filter(u => u.role !== 'admin');
+        let users = [];
+        if (supabase) {
+            try {
+                const { data, error } = await supabase.from('matias_users').select('*').neq('role', 'admin');
+                if (error) throw error;
+                users = data || [];
+            } catch (err) {
+                console.error("Error loading users from Supabase:", err);
+            }
+        } else {
+            users = getUsers().filter(u => u.role !== 'admin');
+        }
 
         const filteredUsers = users.filter(user => {
-            const matchesQuery = user.name.toLowerCase().includes(query) || 
-                                 user.email.toLowerCase().includes(query) || 
-                                 user.whatsapp.includes(query);
+            const matchesQuery = (user.name || '').toLowerCase().includes(query) || 
+                                 (user.email || '').toLowerCase().includes(query) || 
+                                 (user.whatsapp || '').includes(query);
             
             const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
             
@@ -1392,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>
                     <div class="user-contact-info">
                         <span class="user-email-text">${user.email}</span>
-                        <a href="https://wa.me/598${user.whatsapp.replace(/^0/, '')}" target="_blank" class="user-phone-link">
+                        <a href="https://wa.me/598${(user.whatsapp || '').replace(/^0/, '')}" target="_blank" class="user-phone-link">
                             <i data-lucide="message-circle" class="icon-sm"></i> ${user.whatsapp}
                         </a>
                     </div>
@@ -1421,35 +1569,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const updateUserStatus = (email, newStatus) => {
-        const users = getUsers();
-        const userIndex = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
-        
-        if (userIndex !== -1) {
-            users[userIndex].status = newStatus;
-            saveUsers(users);
-            
-            const currentUser = getCurrentUser();
-            if (currentUser && currentUser.email.toLowerCase() === email.toLowerCase()) {
-                currentUser.status = newStatus;
-                setCurrentUser(currentUser);
+    const updateUserStatus = async (email, newStatus) => {
+        let userName = '';
+        if (supabase) {
+            try {
+                const { data, error } = await supabase.from('matias_users')
+                    .update({ status: newStatus })
+                    .eq('email', email.toLowerCase())
+                    .select('name');
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    userName = data[0].name;
+                }
+            } catch (err) {
+                console.error("Error updating user status in Supabase:", err);
+                alert("Error al actualizar estado del usuario en la nube.");
+                return;
             }
+        } else {
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
             
-            loadAdminPanel();
-            alert(`El usuario ${users[userIndex].name} ha sido ${newStatus === 'aprobado' ? 'aprobado' : 'rechazado'} con éxito.`);
+            if (userIndex !== -1) {
+                users[userIndex].status = newStatus;
+                saveUsers(users);
+                userName = users[userIndex].name;
+            }
         }
+
+        const currentUser = getCurrentUser();
+        if (currentUser && currentUser.email.toLowerCase() === email.toLowerCase()) {
+            currentUser.status = newStatus;
+            setCurrentUser(currentUser);
+        }
+        
+        await loadAdminPanel();
+        alert(`El usuario ${userName || email} ha sido ${newStatus === 'aprobado' ? 'aprobado' : 'rechazado'} con éxito.`);
     };
 
-    const deleteUserAccount = (email) => {
+    const deleteUserAccount = async (email) => {
         if (!confirm('¿Estás seguro de que deseas eliminar permanentemente esta cuenta de usuario?')) {
             return;
         }
 
-        const users = getUsers();
-        const filteredUsers = users.filter(u => u.email.toLowerCase() !== email.toLowerCase());
-        
-        saveUsers(filteredUsers);
-        loadAdminPanel();
+        if (supabase) {
+            try {
+                const { error: errorNotif } = await supabase.from('matias_notifications')
+                    .delete()
+                    .eq('email', email.toLowerCase());
+                if (errorNotif) console.warn("Error deleting notifications for deleted user:", errorNotif);
+
+                const { error } = await supabase.from('matias_users')
+                    .delete()
+                    .eq('email', email.toLowerCase());
+                if (error) throw error;
+            } catch (err) {
+                console.error("Error deleting user from Supabase:", err);
+                alert("Error al eliminar el usuario de la nube.");
+                return;
+            }
+        } else {
+            const users = getUsers();
+            const filteredUsers = users.filter(u => u.email.toLowerCase() !== email.toLowerCase());
+            saveUsers(filteredUsers);
+        }
+
+        await loadAdminPanel();
         alert('El usuario ha sido eliminado correctamente.');
     };
 
@@ -1488,61 +1673,184 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                let pdfObject;
+                const btnSave = document.getElementById('btn-save-pdf');
+                const origText = btnSave.textContent;
+                btnSave.textContent = 'Guardando...';
+                btnSave.disabled = true;
 
-                if (editId) {
-                    const existingPdf = await window.pdfDb.getPDF(editId);
-                    if (!existingPdf) {
-                        alert('No se pudo encontrar el PDF original.');
-                        return;
-                    }
+                if (supabase) {
+                    let fileUrl = null;
+                    let fileName = null;
+                    let uploadDate = new Date().toLocaleDateString('es-ES');
 
-                    let blob = existingPdf.blob;
-                    let fileName = existingPdf.fileName;
+                    if (editId) {
+                        const { data: existingPdf, error: errGet } = await supabase.from('matias_pdfs').select('*').eq('id', editId).single();
+                        if (errGet || !existingPdf) {
+                            alert('No se pudo encontrar el PDF original.');
+                            btnSave.textContent = origText;
+                            btnSave.disabled = false;
+                            return;
+                        }
 
-                    if (hasNewFile) {
+                        fileUrl = existingPdf.fileUrl;
+                        fileName = existingPdf.fileName;
+                        uploadDate = existingPdf.uploadDate;
+
+                        if (hasNewFile) {
+                            const file = fileInput.files[0];
+                            if (file.type !== 'application/pdf') {
+                                alert('Solo se admiten archivos en formato PDF.');
+                                btnSave.textContent = origText;
+                                btnSave.disabled = false;
+                                return;
+                            }
+                            fileName = file.name;
+                            const uniqueStorageName = Date.now() + '_' + file.name;
+
+                            const { data: uploadData, error: uploadErr } = await supabase.storage
+                                .from('pdfs')
+                                .upload(uniqueStorageName, file);
+                            
+                            if (uploadErr) throw uploadErr;
+
+                            const { data: publicUrlData } = supabase.storage
+                                .from('pdfs')
+                                .getPublicUrl(uniqueStorageName);
+                            
+                            const newFileUrl = publicUrlData.publicUrl;
+
+                            if (existingPdf.fileUrl) {
+                                const parts = existingPdf.fileUrl.split('/');
+                                const oldStorageName = parts[parts.length - 1];
+                                await supabase.storage.from('pdfs').remove([oldStorageName]);
+                            }
+
+                            fileUrl = newFileUrl;
+                        }
+
+                        const { error: errUpdate } = await supabase.from('matias_pdfs')
+                            .update({
+                                title,
+                                description,
+                                fileName,
+                                fileUrl
+                            })
+                            .eq('id', editId);
+                        
+                        if (errUpdate) throw errUpdate;
+
+                    } else {
                         const file = fileInput.files[0];
                         if (file.type !== 'application/pdf') {
                             alert('Solo se admiten archivos en formato PDF.');
+                            btnSave.textContent = origText;
+                            btnSave.disabled = false;
                             return;
                         }
-                        blob = file;
+
                         fileName = file.name;
+                        const uniqueStorageName = Date.now() + '_' + file.name;
+
+                        const { data: uploadData, error: uploadErr } = await supabase.storage
+                            .from('pdfs')
+                            .upload(uniqueStorageName, file);
+                        
+                        if (uploadErr) throw uploadErr;
+
+                        const { data: publicUrlData } = supabase.storage
+                            .from('pdfs')
+                            .getPublicUrl(uniqueStorageName);
+                        
+                        fileUrl = publicUrlData.publicUrl;
+
+                        const newPdfObject = {
+                            id: 'pdf_' + Date.now(),
+                            title,
+                            description,
+                            fileName,
+                            fileUrl,
+                            uploadDate
+                        };
+
+                        const { error: errInsert } = await supabase.from('matias_pdfs').insert([newPdfObject]);
+                        if (errInsert) throw errInsert;
                     }
 
-                    pdfObject = {
-                        id: editId,
-                        title,
-                        description,
-                        fileName,
-                        blob,
-                        uploadDate: existingPdf.uploadDate
-                    };
+                    alert(editId ? 'Recurso PDF actualizado con éxito.' : 'Nuevo PDF subido con éxito.');
+                    resetPdfForm();
+                    await loadAdminPDFsTable();
+
                 } else {
-                    const file = fileInput.files[0];
-                    if (file.type !== 'application/pdf') {
-                        alert('Solo se admiten archivos en formato PDF.');
-                        return;
+                    let pdfObject;
+
+                    if (editId) {
+                        const existingPdf = await window.pdfDb.getPDF(editId);
+                        if (!existingPdf) {
+                            alert('No se pudo encontrar el PDF original.');
+                            btnSave.textContent = origText;
+                            btnSave.disabled = false;
+                            return;
+                        }
+
+                        let blob = existingPdf.blob;
+                        let fileName = existingPdf.fileName;
+
+                        if (hasNewFile) {
+                            const file = fileInput.files[0];
+                            if (file.type !== 'application/pdf') {
+                                alert('Solo se admiten archivos en formato PDF.');
+                                btnSave.textContent = origText;
+                                btnSave.disabled = false;
+                                return;
+                            }
+                            blob = file;
+                            fileName = file.name;
+                        }
+
+                        pdfObject = {
+                            id: editId,
+                            title,
+                            description,
+                            fileName,
+                            blob,
+                            uploadDate: existingPdf.uploadDate
+                        };
+                    } else {
+                        const file = fileInput.files[0];
+                        if (file.type !== 'application/pdf') {
+                            alert('Solo se admiten archivos en formato PDF.');
+                            btnSave.textContent = origText;
+                            btnSave.disabled = false;
+                            return;
+                        }
+
+                        pdfObject = {
+                            id: 'pdf_' + Date.now(),
+                            title,
+                            description,
+                            fileName: file.name,
+                            blob: file,
+                            uploadDate: new Date().toLocaleDateString('es-ES')
+                        };
                     }
 
-                    pdfObject = {
-                        id: 'pdf_' + Date.now(),
-                        title,
-                        description,
-                        fileName: file.name,
-                        blob: file,
-                        uploadDate: new Date().toLocaleDateString('es-ES')
-                    };
+                    await window.pdfDb.savePDF(pdfObject);
+                    alert(editId ? 'Recurso PDF actualizado con éxito.' : 'Nuevo PDF subido con éxito.');
+                    resetPdfForm();
+                    await loadAdminPDFsTable();
                 }
 
-                await window.pdfDb.savePDF(pdfObject);
-                alert(editId ? 'Recurso PDF actualizado con éxito.' : 'Nuevo PDF subido con éxito.');
-                resetPdfForm();
-                loadAdminPDFsTable();
+                btnSave.textContent = origText;
+                btnSave.disabled = false;
 
             } catch (err) {
                 console.error('Error saving PDF:', err);
-                alert('Ocurrió un error al guardar el PDF en la base de datos.');
+                alert('Ocurrió un error al guardar el PDF: ' + (err.message || err));
+                const btnSave = document.getElementById('btn-save-pdf');
+                if (btnSave) {
+                    btnSave.textContent = 'Guardar Recurso';
+                    btnSave.disabled = false;
+                }
             }
         });
     }
@@ -1552,8 +1860,14 @@ document.addEventListener('DOMContentLoaded', () => {
         pdfsList.innerHTML = '';
 
         try {
-            // Se muestran los PDFs subidos en IndexedDB. El eBook estático no se lista aquí para evitar que se borre.
-            const pdfs = await window.pdfDb.getAllPDFs();
+            let pdfs = [];
+            if (supabase) {
+                const { data, error } = await supabase.from('matias_pdfs').select('*');
+                if (error) throw error;
+                pdfs = data || [];
+            } else {
+                pdfs = await window.pdfDb.getAllPDFs();
+            }
 
             if (pdfs.length === 0) {
                 pdfsList.innerHTML = `
@@ -1602,7 +1916,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startPdfEdit = async (id) => {
         try {
-            const pdf = await window.pdfDb.getPDF(id);
+            let pdf;
+            if (supabase) {
+                const { data, error } = await supabase.from('matias_pdfs').select('*').eq('id', id).single();
+                if (error) throw error;
+                pdf = data;
+            } else {
+                pdf = await window.pdfDb.getPDF(id);
+            }
             if (!pdf) return;
 
             document.getElementById('edit-pdf-id').value = pdf.id;
@@ -1628,9 +1949,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            await window.pdfDb.deletePDF(id);
+            if (supabase) {
+                const { data: pdf, error: errGet } = await supabase.from('matias_pdfs').select('*').eq('id', id).single();
+                if (errGet) throw errGet;
+
+                if (pdf && pdf.fileUrl) {
+                    const parts = pdf.fileUrl.split('/');
+                    const storageFileName = parts[parts.length - 1];
+                    const { error: errStorage } = await supabase.storage.from('pdfs').remove([storageFileName]);
+                    if (errStorage) console.warn("Error removing file from storage:", errStorage);
+                }
+
+                const { error: errDb } = await supabase.from('matias_pdfs').delete().eq('id', id);
+                if (errDb) throw errDb;
+            } else {
+                await window.pdfDb.deletePDF(id);
+            }
             alert('PDF eliminado correctamente.');
-            loadAdminPDFsTable();
+            await loadAdminPDFsTable();
             const hash = window.location.hash || '#';
             if (hash.includes(id)) {
                 window.location.hash = '#plataforma/biblioteca';
@@ -1642,11 +1978,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Notifications List in Admin
-    const loadAdminNotifications = () => {
+    const loadAdminNotifications = async () => {
         const listContainer = document.getElementById('admin-notifications-list');
         listContainer.innerHTML = '';
 
-        const notifications = getNotifications();
+        let notifications = [];
+        let users = [];
+
+        if (supabase) {
+            try {
+                const { data: notifData, error: errNotif } = await supabase.from('matias_notifications')
+                    .select('*')
+                    .order('id', { ascending: false });
+                if (errNotif) throw errNotif;
+                notifications = notifData || [];
+
+                const { data: userData, error: errUser } = await supabase.from('matias_users').select('*');
+                if (errUser) throw errUser;
+                users = userData || [];
+            } catch (err) {
+                console.error("Error loading notifications from Supabase:", err);
+            }
+        } else {
+            notifications = getNotifications();
+            users = getUsers();
+        }
 
         if (notifications.length === 0) {
             listContainer.innerHTML = `
@@ -1663,7 +2019,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'notif-card';
             
-            const users = getUsers();
             const matchedUser = users.find(u => u.email.toLowerCase() === notif.email.toLowerCase());
             
             let quickActions = '';
@@ -1688,7 +2043,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="notif-body">
                         <strong>Nombre:</strong> ${notif.name}<br>
                         <strong>Correo:</strong> ${notif.email}<br>
-                        <strong>WhatsApp:</strong> <a href="https://wa.me/598${notif.whatsapp.replace(/^0/, '')}" target="_blank" style="color:var(--color-primary);text-decoration:underline;">${notif.whatsapp}</a>
+                        <strong>WhatsApp:</strong> <a href="https://wa.me/598${(notif.whatsapp || '').replace(/^0/, '')}" target="_blank" style="color:var(--color-primary);text-decoration:underline;">${notif.whatsapp}</a>
                     </div>
                     <div class="notif-date">Registrado el: ${notif.regDate}</div>
                 </div>
@@ -1701,26 +2056,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         listContainer.querySelectorAll('.btn-notif-approve').forEach(btn => {
-            btn.addEventListener('click', () => {
-                updateUserStatus(btn.getAttribute('data-email'), 'aprobado');
-                loadAdminNotifications();
+            btn.addEventListener('click', async () => {
+                await updateUserStatus(btn.getAttribute('data-email'), 'aprobado');
+                await loadAdminNotifications();
             });
         });
         listContainer.querySelectorAll('.btn-notif-reject').forEach(btn => {
-            btn.addEventListener('click', () => {
-                updateUserStatus(btn.getAttribute('data-email'), 'rechazado');
-                loadAdminNotifications();
+            btn.addEventListener('click', async () => {
+                await updateUserStatus(btn.getAttribute('data-email'), 'rechazado');
+                await loadAdminNotifications();
             });
         });
     };
 
     const clearNotificationsBtn = document.getElementById('btn-clear-notifications');
     if (clearNotificationsBtn) {
-        clearNotificationsBtn.addEventListener('click', () => {
+        clearNotificationsBtn.addEventListener('click', async () => {
             if (confirm('¿Deseas vaciar el historial de notificaciones?')) {
-                saveNotifications([]);
-                loadAdminNotifications();
-                updateAdminNotificationBadges();
+                if (supabase) {
+                    try {
+                        const { error } = await supabase.from('matias_notifications').delete().neq('id', '');
+                        if (error) throw error;
+                    } catch (err) {
+                        console.error("Error clearing notifications from Supabase:", err);
+                        alert("Error al vaciar notificaciones en la nube.");
+                        return;
+                    }
+                } else {
+                    saveNotifications([]);
+                }
+                await loadAdminNotifications();
+                await updateAdminNotificationBadges();
             }
         });
     }
