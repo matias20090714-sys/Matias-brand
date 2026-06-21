@@ -1511,6 +1511,12 @@ ul {
     display: none !important;
 }
 
+@media (min-width: 993px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
 /* Platform Bar */
 .platform-bar {
     background-color: #06090F;
