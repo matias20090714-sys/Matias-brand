@@ -1641,6 +1641,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call updateHeaderAuthActions on load to reflect auth state
     updateHeaderAuthActions();
 
+    // ==========================================
+    // SCROLL ANIMATIONS (INTERSECTION OBSERVER)
+    // ==========================================
+    const animatedElements = document.querySelectorAll('[data-animate]');
+    if ('IntersectionObserver' in window) {
+        const animationObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => {
+            animationObserver.observe(el);
+        });
+    } else {
+        animatedElements.forEach(el => {
+            el.classList.add('animated');
+        });
+    }
+
 });
 
 // ==========================================
