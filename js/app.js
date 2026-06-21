@@ -680,6 +680,33 @@ document.addEventListener('DOMContentLoaded', () => {
             if (userInfo) userInfo.classList.add('hidden');
         }
 
+        // Mobile menu auth actions update
+        const mobLogin = document.getElementById('mobile-login-item');
+        const mobRegister = document.getElementById('mobile-register-item');
+        const mobAdmin = document.getElementById('mobile-admin-item');
+        const mobLibrary = document.getElementById('mobile-library-item');
+        const mobLogout = document.getElementById('mobile-logout-item');
+        
+        if (currentUser) {
+            if (mobLogin) mobLogin.classList.add('hidden');
+            if (mobRegister) mobRegister.classList.add('hidden');
+            if (mobLogout) mobLogout.classList.remove('hidden');
+            
+            if (currentUser.role === 'admin') {
+                if (mobAdmin) mobAdmin.classList.remove('hidden');
+                if (mobLibrary) mobLibrary.classList.add('hidden');
+            } else {
+                if (mobAdmin) mobAdmin.classList.add('hidden');
+                if (mobLibrary) mobLibrary.classList.remove('hidden');
+            }
+        } else {
+            if (mobLogin) mobLogin.classList.remove('hidden');
+            if (mobRegister) mobRegister.classList.remove('hidden');
+            if (mobAdmin) mobAdmin.classList.add('hidden');
+            if (mobLibrary) mobLibrary.classList.add('hidden');
+            if (mobLogout) mobLogout.classList.add('hidden');
+        }
+
         // Adjust navbar highlight
         const hash = window.location.hash || '#';
         document.querySelectorAll('.nav-link').forEach(link => {
