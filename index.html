@@ -38,6 +38,13 @@
                     <li><a href="#faq" class="nav-link">Preguntas</a></li>
                     <li><a href="#contacto" class="nav-link">Contacto</a></li>
                     <li><a href="#plataforma" class="nav-link" id="nav-plataforma-link">Plataforma</a></li>
+                    
+                    <!-- Mobile-only Auth Links (toggled dynamically via JS) -->
+                    <li class="mobile-only" id="mobile-login-item"><a href="#" class="nav-link" onclick="openLoginModal(); return false;">Iniciar Sesión</a></li>
+                    <li class="mobile-only" id="mobile-register-item"><a href="#" class="nav-link" onclick="openRegisterModal(); return false;">Registrarse</a></li>
+                    <li class="mobile-only hidden" id="mobile-admin-item"><a href="#admin" class="nav-link">Panel de Administración</a></li>
+                    <li class="mobile-only hidden" id="mobile-library-item"><a href="#plataforma/biblioteca" class="nav-link">Mi Biblioteca</a></li>
+                    <li class="mobile-only hidden" id="mobile-logout-item"><a href="#" class="nav-link" onclick="logoutUser(); return false;">Cerrar Sesión</a></li>
                 </ul>
             </nav>
             
