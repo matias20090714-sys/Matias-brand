@@ -260,12 +260,15 @@ ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 95%;
+    max-width: 1350px;
 }
 
 .logo-area {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
 }
 
 .logo-img {
@@ -282,13 +285,21 @@ ul {
     color: var(--color-text-primary);
 }
 
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0 clamp(10px, 2vw, 30px);
+}
+
 .nav-list {
     display: flex;
-    gap: 32px;
+    gap: clamp(8px, 1.4vw, 24px);
 }
 
 .nav-link {
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 0.9vw, 0.9rem);
     font-weight: 500;
     color: var(--color-text-secondary);
     position: relative;
@@ -317,7 +328,15 @@ ul {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: clamp(6px, 0.9vw, 12px);
+    flex-shrink: 0;
+}
+
+/* Compact header buttons on desktop */
+.header-container .btn-sm {
+    padding: 8px 14px;
+    font-size: clamp(0.78rem, 0.85vw, 0.85rem);
+    white-space: nowrap;
 }
 
 .nav-toggle {
@@ -1352,7 +1371,7 @@ ul {
 }
 
 /* Tablets and Mobile Menu */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     :root {
         --header-height: 70px;
     }
