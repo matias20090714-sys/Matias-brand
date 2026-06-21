@@ -340,6 +340,48 @@ ul {
     transition: var(--transition-bounce);
 }
 
+/* Outline button (for Login btn) */
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.btn-outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: rgba(0, 200, 83, 0.05);
+    transform: translateY(-2px);
+}
+
+/* WhatsApp button */
+.btn-whatsapp {
+    background-color: #25D366;
+    color: #fff;
+    border: none;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe5a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+
+/* Nav user info (shown when logged in) */
+.nav-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+}
+
 /* ==========================================================================
    Hero Section
    ========================================================================== */
@@ -1368,6 +1410,13 @@ ul {
     .btn-nav-cta {
         display: none; /* Hide top CTA in mobile header to avoid clutter */
     }
+
+    #nav-login-btn,
+    #nav-register-btn,
+    .btn-whatsapp.btn-nav-cta,
+    .nav-user-info {
+        display: none; /* Hidden in mobile header - use menu links instead */
+    }
     
     .form-row {
         grid-template-columns: 1fr;
@@ -1758,6 +1807,116 @@ ul {
     height: 60px;
     color: var(--color-text-muted);
     margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   Platform Welcome Banner (Matías intro inside members area)
+   ========================================================================== */
+.platform-welcome-banner {
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(0,200,83,0.04) 100%);
+    border: 1px solid rgba(0, 200, 83, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+.platform-welcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.platform-mentor-avatar {
+    position: relative;
+}
+
+.platform-mentor-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid rgba(0, 200, 83, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.platform-mentor-tag {
+    display: inline-block;
+    background: rgba(0,200,83,0.12);
+    color: var(--color-primary);
+    border: 1px solid rgba(0,200,83,0.2);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 10px;
+}
+
+.platform-mentor-name {
+    font-family: var(--font-title);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.platform-mentor-bio {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 600px;
+}
+
+.platform-mentor-bio strong {
+    color: var(--color-text-primary);
+}
+
+.platform-mentor-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pm-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.pm-stat-num {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.pm-stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+}
+
+.pm-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--color-border);
+}
+
+@media (max-width: 768px) {
+    .platform-welcome-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .platform-mentor-img {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+    .platform-mentor-stats {
+        justify-content: center;
+    }
 }
 
 /* PDF Viewer */
