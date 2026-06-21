@@ -37,10 +37,12 @@
                     <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
                     <li><a href="#faq" class="nav-link">Preguntas</a></li>
                     <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                    <li><a href="#plataforma" class="nav-link" id="nav-plataforma-link">Plataforma</a></li>
                 </ul>
             </nav>
             
             <div class="nav-actions">
+                <a href="#admin" class="btn btn-secondary btn-sm hidden" id="admin-panel-btn">Panel de Administración</a>
                 <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20vi%20tu%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="btn btn-primary btn-sm btn-nav-cta">
                     Escribime <i data-lucide="message-circle" class="icon-sm"></i>
                 </a>
@@ -53,6 +55,7 @@
         </div>
     </header>
 
+    <div id="landing-content">
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
         <div class="hero-bg-glow"></div>
@@ -586,8 +589,301 @@
     <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20tengo%20una%20consulta." target="_blank" class="floating-whatsapp" aria-label="Escribir por WhatsApp">
         <i data-lucide="message-circle" class="whatsapp-float-icon"></i>
     </a>
+    </div><!-- End landing-content -->
+
+    <!-- Plataforma de Miembros -->
+    <div id="platform-content" class="hidden">
+        <!-- Platform User bar / mini-header -->
+        <div class="platform-bar">
+            <div class="container platform-bar-container">
+                <span class="platform-welcome" id="platform-welcome-msg">Bienvenido al Portal de Miembros</span>
+                <div class="platform-bar-actions" id="platform-user-status">
+                    <!-- Dynamic login/logout details -->
+                </div>
+            </div>
+        </div>
+
+        <div class="platform-body-container container">
+            
+            <!-- Vista 1: Login / Registro -->
+            <div id="auth-view" class="platform-view hidden">
+                <div class="auth-card">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" id="tab-login-btn">Iniciar Sesión</button>
+                        <button class="auth-tab" id="tab-register-btn">Registrarse</button>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <form id="login-form" class="auth-form active">
+                        <h3 class="auth-form-title">Bienvenido</h3>
+                        <p class="auth-form-subtitle">Ingresa tus credenciales para acceder</p>
+                        
+                        <div class="form-group">
+                            <label for="login-email">Correo electrónico</label>
+                            <input type="email" id="login-email" required placeholder="tu@correo.com" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Ingresar <i data-lucide="log-in" class="btn-icon"></i></button>
+                    </form>
+                    
+                    <!-- Register Form -->
+                    <form id="register-form" class="auth-form">
+                        <h3 class="auth-form-title">Crear Cuenta</h3>
+                        <p class="auth-form-subtitle">Completa el formulario para registrarte en la lista de espera</p>
+                        
+                        <div class="form-group">
+                            <label for="register-name">Nombre completo</label>
+                            <input type="text" id="register-name" required placeholder="Tu nombre completo" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Correo electrónico</label>
+                            <input type="email" id="register-email" required placeholder="tu@correo.com" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-whatsapp">Número de WhatsApp</label>
+                            <input type="tel" id="register-whatsapp" required placeholder="Ej: 092707489" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Contraseña</label>
+                            <input type="password" id="register-password" required placeholder="Crea una contraseña segura" autocomplete="new-password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Registrarse <i data-lucide="user-plus" class="btn-icon"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Vista 2: Pendiente de Aprobación -->
+            <div id="pending-view" class="platform-view hidden">
+                <div class="status-card text-center">
+                    <div class="status-icon-wrapper pending">
+                        <i data-lucide="hourglass" class="status-icon"></i>
+                    </div>
+                    <h3 class="status-title text-gradient">Solicitud enviada correctamente</h3>
+                    <p class="status-desc">Tu cuenta fue creada correctamente.</p>
+                    <p class="status-info-box">
+                        Actualmente se encuentra <strong>pendiente de aprobación</strong> por el administrador.
+                        Una vez aprobada podrás acceder al contenido exclusivo de la plataforma.
+                    </p>
+                    <div class="status-actions">
+                        <a href="https://wa.me/59892707489?text=Hola%20Mat%C3%ADas%2C%20ya%20me%20registr%C3%A9%20en%20tu%20plataforma%20y%20espero%20aprobaci%C3%B3n." target="_blank" class="btn btn-primary">
+                            Avisar por WhatsApp <i data-lucide="message-circle" class="btn-icon"></i>
+                        </a>
+                        <button class="btn btn-secondary logout-btn">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista 3: Acceso Denegado -->
+            <div id="denied-view" class="platform-view hidden">
+                <div class="status-card text-center">
+                    <div class="status-icon-wrapper denied">
+                        <i data-lucide="shield-alert" class="status-icon"></i>
+                    </div>
+                    <h3 class="status-title text-red">Acceso denegado</h3>
+                    <p class="status-desc" id="denied-message">No tienes permisos para ver esta sección.</p>
+                    <div class="status-actions">
+                        <button class="btn btn-primary logout-btn">Ir al Inicio de Sesión</button>
+                        <a href="#" class="btn btn-secondary btn-back-home">Volver al Inicio</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista 4: Biblioteca de Recursos (PDFs) -->
+            <div id="library-view" class="platform-view hidden">
+                <!-- Idea de Contenido del Día -->
+                <div class="content-idea-card hidden" id="daily-content-idea-container">
+                    <!-- Dynamic daily content idea will be rendered here -->
+                </div>
+
+                <div class="library-header">
+                    <div>
+                        <h2 class="library-title">Biblioteca de Recursos</h2>
+                        <p class="library-subtitle">Material exclusivo y guías para tu crecimiento digital</p>
+                    </div>
+                    <div class="library-search-bar">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" id="library-search" placeholder="Buscar recursos...">
+                    </div>
+                </div>
+                
+                <div class="library-grid" id="pdf-library-grid">
+                    <!-- PDF cards will be dynamically rendered here -->
+                </div>
+                <div id="library-empty" class="text-center hidden">
+                    <i data-lucide="file-text" class="empty-icon" style="width:48px;height:48px;color:var(--color-text-muted);margin-bottom:15px;"></i>
+                    <p>No se encontraron recursos en la biblioteca.</p>
+                </div>
+            </div>
+
+            <!-- Vista 5: Visor de PDF Integrado -->
+            <div id="pdf-viewer-view" class="platform-view hidden">
+                <div class="viewer-header">
+                    <button class="btn btn-secondary btn-sm" id="btn-back-library">
+                        <i data-lucide="arrow-left" class="btn-icon"></i> Volver a la Biblioteca
+                    </button>
+                    <h3 id="viewer-pdf-title" class="viewer-pdf-title">Título del Recurso</h3>
+                </div>
+                <div class="pdf-viewer-container" id="pdf-viewer-container">
+                    <!-- Embedded iframe or object element -->
+                </div>
+                <div class="ebook-reader-container hidden" id="ebook-reader-container">
+                    <div class="ebook-sidebar">
+                        <h4 class="ebook-sidebar-title">Capítulos</h4>
+                        <ul class="ebook-chapters-list" id="ebook-chapters-list">
+                            <!-- Dynamic chapter links -->
+                        </ul>
+                    </div>
+                    <div class="ebook-content-body" id="ebook-content-body">
+                        <!-- Dynamic page/chapter content -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista 6: Panel de Administración -->
+            <div id="admin-view" class="platform-view hidden">
+                <div class="admin-header">
+                    <div>
+                        <h2 class="admin-title">Panel de Administración</h2>
+                        <p class="admin-subtitle">Gestiona usuarios registrados y recursos PDF de la plataforma</p>
+                    </div>
+                    <div class="admin-stats-summary">
+                        <div class="admin-stat-card">
+                            <div class="stat-val" id="stat-total-users">0</div>
+                            <div class="stat-lbl">Usuarios Totales</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="stat-val text-yellow" id="stat-pending-users">0</div>
+                            <div class="stat-lbl">Pendientes</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="stat-val text-green" id="stat-approved-users">0</div>
+                            <div class="stat-lbl">Aprobados</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-layout">
+                    <aside class="admin-sidebar">
+                        <button class="admin-tab-btn active" data-target="admin-tab-users">
+                            <i data-lucide="users"></i> Usuarios
+                            <span class="badge-notifications hidden" id="admin-users-badge">0</span>
+                        </button>
+                        <button class="admin-tab-btn" data-target="admin-tab-pdfs">
+                            <i data-lucide="file-up"></i> Gestionar PDFs
+                        </button>
+                        <button class="admin-tab-btn" data-target="admin-tab-notifications">
+                            <i data-lucide="bell"></i> Notificaciones <span class="badge-notifications hidden" id="admin-notif-badge">0</span>
+                        </button>
+                    </aside>
+
+                    <main class="admin-content-area">
+                        <!-- Tab 1: Gestión de Usuarios -->
+                        <div id="admin-tab-users" class="admin-tab-content active">
+                            <div class="admin-toolbar">
+                                <div class="search-wrapper">
+                                    <i data-lucide="search"></i>
+                                    <input type="text" id="admin-search-users" placeholder="Buscar por nombre, correo o WhatsApp...">
+                                </div>
+                                <div class="filter-wrapper">
+                                    <label for="admin-filter-status">Estado:</label>
+                                    <select id="admin-filter-status">
+                                        <option value="all">Todos</option>
+                                        <option value="pendiente">Pendientes</option>
+                                        <option value="aprobado">Aprobados</option>
+                                        <option value="rechazado">Rechazados</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="admin-table" id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Contacto</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- Dynamic user rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Tab 2: Gestión de PDFs -->
+                        <div id="admin-tab-pdfs" class="admin-tab-content">
+                            <div class="pdf-management-grid">
+                                <div class="pdf-form-card">
+                                    <h4 id="pdf-form-title">Subir Nuevo PDF</h4>
+                                    <form id="upload-pdf-form">
+                                        <input type="hidden" id="edit-pdf-id" value="">
+                                        <div class="form-group">
+                                            <label for="pdf-title">Título del Recurso</label>
+                                            <input type="text" id="pdf-title" required placeholder="Ej: Guía de Marketing Digital">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pdf-desc">Descripción Corta</label>
+                                            <textarea id="pdf-desc" rows="3" required placeholder="De qué trata este recurso..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pdf-file" id="pdf-file-label">Archivo PDF</label>
+                                            <input type="file" id="pdf-file" accept=".pdf">
+                                            <p class="file-help-text" id="pdf-file-help">Selecciona un archivo PDF local. Máximo recomendado 10MB.</p>
+                                        </div>
+                                        <div class="pdf-form-actions">
+                                            <button type="submit" class="btn btn-primary btn-sm" id="btn-save-pdf">Guardar Recurso</button>
+                                            <button type="button" class="btn btn-secondary btn-sm hidden" id="btn-cancel-pdf-edit">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="pdf-list-card">
+                                    <h4>PDFs en la Biblioteca</h4>
+                                    <div class="table-container">
+                                        <table class="admin-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Título</th>
+                                                    <th>Fecha</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="admin-pdfs-list">
+                                                <!-- Dynamic PDFs rows -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3: Notificaciones de Registro -->
+                        <div id="admin-tab-notifications" class="admin-tab-content">
+                            <div class="notifications-header">
+                                <h4>Alertas de Registro Recientes</h4>
+                                <button class="btn btn-secondary btn-sm" id="btn-clear-notifications">Limpiar Historial</button>
+                            </div>
+                            <div class="notifications-list" id="admin-notifications-list">
+                                <!-- Dynamic notifications -->
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Custom JS -->
+    <script src="js/db.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
