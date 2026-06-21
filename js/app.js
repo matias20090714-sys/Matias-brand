@@ -44,32 +44,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    // Seed users database
-    if (!localStorage.getItem('matias_users')) {
-        localStorage.setItem('matias_users', JSON.stringify(defaultUsers));
-    } else {
-        // Ensure admin account always exists (even on updates/migrations)
-        const existingUsers = getUsers();
-        const adminExists = existingUsers.some(u => u.email === 'matias20090714@gmail.com' && u.role === 'admin');
-        if (!adminExists) {
-            existingUsers.unshift(defaultUsers[0]); // Add admin at top
-            saveUsers(existingUsers);
+    // Helper functions for database access
+    const getUsers = () => {
+        try {
+            const data = localStorage.getItem('matias_users');
+            return data ? JSON.parse(data) : [];
+        } catch (e) {
+            return [];
         }
+    };
+
+    const saveUsers = (users) => {
+        try {
+            localStorage.setItem('matias_users', JSON.stringify(users));
+        } catch (e) {
+            console.error("Error al guardar usuarios:", e);
+        }
+    };
+
+    const getNotifications = () => {
+        try {
+            const data = localStorage.getItem('matias_notifications');
+            return data ? JSON.parse(data) : [];
+        } catch (e) {
+            return [];
+        }
+    };
+
+    const saveNotifications = (notifs) => {
+        try {
+            localStorage.setItem('matias_notifications', JSON.stringify(notifs));
+        } catch (e) {
+            console.error("Error al guardar notificaciones:", e);
+        }
+    };
+
+    const getCurrentUser = () => {
+        try {
+            const data = localStorage.getItem('matias_currentUser');
+            return data ? JSON.parse(data) : null;
+        } catch (e) {
+            return null;
+        }
+    };
+
+    const setCurrentUser = (user) => {
+        try {
+            localStorage.setItem('matias_currentUser', JSON.stringify(user));
+        } catch (e) {
+            console.error("Error al guardar usuario actual:", e);
+        }
+    };
+
+    const removeCurrentUser = () => {
+        try {
+            localStorage.removeItem('matias_currentUser');
+        } catch (e) {
+            console.error("Error al eliminar usuario actual:", e);
+        }
+    };
+
+    // Seed users database
+    try {
+        if (!localStorage.getItem('matias_users')) {
+            localStorage.setItem('matias_users', JSON.stringify(defaultUsers));
+        } else {
+            // Ensure admin account always exists (even on updates/migrations)
+            const existingUsers = getUsers();
+            const adminExists = existingUsers.some(u => u.email === 'matias20090714@gmail.com' && u.role === 'admin');
+            if (!adminExists) {
+                existingUsers.unshift(defaultUsers[0]); // Add admin at top
+                saveUsers(existingUsers);
+            }
+        }
+    } catch (e) {
+        console.error("Failed to seed users in localStorage:", e);
     }
 
     // Initialize notifications storage
-    if (!localStorage.getItem('matias_notifications')) {
-        localStorage.setItem('matias_notifications', JSON.stringify([]));
+    try {
+        if (!localStorage.getItem('matias_notifications')) {
+            localStorage.setItem('matias_notifications', JSON.stringify([]));
+        }
+    } catch (e) {
+        console.error("Failed to seed notifications in localStorage:", e);
     }
 
-    // Helper functions for database access
-    const getUsers = () => JSON.parse(localStorage.getItem('matias_users'));
-    const saveUsers = (users) => localStorage.setItem('matias_users', JSON.stringify(users));
-    const getNotifications = () => JSON.parse(localStorage.getItem('matias_notifications'));
-    const saveNotifications = (notifs) => localStorage.setItem('matias_notifications', JSON.stringify(notifs));
-    const getCurrentUser = () => JSON.parse(localStorage.getItem('matias_currentUser') || 'null');
-    const setCurrentUser = (user) => localStorage.setItem('matias_currentUser', JSON.stringify(user));
-    const removeCurrentUser = () => localStorage.removeItem('matias_currentUser');
 
     // Initialize Lucide Icons
     const renderIcons = () => {
