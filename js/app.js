@@ -1667,6 +1667,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // MOBILE NAVIGATION MENU TOGGLE
+    // ==========================================
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('active');
+            });
+        });
+    }
+
 });
 
 // ==========================================
