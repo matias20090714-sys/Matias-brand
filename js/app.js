@@ -828,7 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const { data, error } = await supabase.from('matias_users')
                     .select('*')
-                    .eq('email', currentUser.email.toLowerCase())
+                    .ilike('email', currentUser.email)
                     .single();
                 if (data) {
                     currentUser = data;
@@ -959,7 +959,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const { data, error } = await supabase.from('matias_users')
                         .select('*')
-                        .eq('email', email.toLowerCase())
+                        .ilike('email', email)
                         .eq('password', password)
                         .single();
                     if (data) matchedUser = data;
@@ -995,7 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const { data, error } = await supabase.from('matias_users')
                         .select('email')
-                        .eq('email', email.toLowerCase());
+                        .ilike('email', email);
                     if (data && data.length > 0) emailExists = true;
                 } catch (err) {
                     console.error("Supabase check email error:", err);
@@ -1013,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newUser = {
                 id: 'user_' + Date.now(),
                 name,
-                email,
+                email: email.toLowerCase(),
                 whatsapp,
                 password,
                 role: 'user',
@@ -1044,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newNotif = {
                 id: 'notif_' + Date.now(),
                 name,
-                email,
+                email: email.toLowerCase(),
                 whatsapp,
                 regDate: newUser.regDate,
                 read: false
@@ -1575,7 +1575,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const { data, error } = await supabase.from('matias_users')
                     .update({ status: newStatus })
-                    .eq('email', email.toLowerCase())
+                    .ilike('email', email)
                     .select('name');
                 if (error) throw error;
                 if (data && data.length > 0) {
@@ -1616,12 +1616,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const { error: errorNotif } = await supabase.from('matias_notifications')
                     .delete()
-                    .eq('email', email.toLowerCase());
+                    .ilike('email', email);
                 if (errorNotif) console.warn("Error deleting notifications for deleted user:", errorNotif);
 
                 const { error } = await supabase.from('matias_users')
                     .delete()
-                    .eq('email', email.toLowerCase());
+                    .ilike('email', email);
                 if (error) throw error;
             } catch (err) {
                 console.error("Error deleting user from Supabase:", err);
@@ -1698,7 +1698,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (hasNewFile) {
                             const file = fileInput.files[0];
-                            if (file.type !== 'application/pdf') {
+                            if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
                                 alert('Solo se admiten archivos en formato PDF.');
                                 btnSave.textContent = origText;
                                 btnSave.disabled = false;
@@ -1741,7 +1741,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     } else {
                         const file = fileInput.files[0];
-                        if (file.type !== 'application/pdf') {
+                        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
                             alert('Solo se admiten archivos en formato PDF.');
                             btnSave.textContent = origText;
                             btnSave.disabled = false;
@@ -1797,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (hasNewFile) {
                             const file = fileInput.files[0];
-                            if (file.type !== 'application/pdf') {
+                            if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
                                 alert('Solo se admiten archivos en formato PDF.');
                                 btnSave.textContent = origText;
                                 btnSave.disabled = false;
@@ -1817,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         };
                     } else {
                         const file = fileInput.files[0];
-                        if (file.type !== 'application/pdf') {
+                        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
                             alert('Solo se admiten archivos en formato PDF.');
                             btnSave.textContent = origText;
                             btnSave.disabled = false;
