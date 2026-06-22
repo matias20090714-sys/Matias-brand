@@ -58,3 +58,35 @@ VALUES (
 
 -- NOTE: To enable file uploads, you must also create a storage bucket in Supabase called 'pdfs' and set its visibility to "Public".
 -- You can do this by going to Storage -> New bucket -> Name: "pdfs", Visibility: Public.
+
+-- 6. Storage Policies for 'pdfs' bucket
+-- If the policies already exist, we drop them first to prevent errors on re-runs.
+DROP POLICY IF EXISTS "Allow Public Uploads" ON storage.objects;
+DROP POLICY IF EXISTS "Allow Public Read" ON storage.objects;
+DROP POLICY IF EXISTS "Allow Public Delete" ON storage.objects;
+DROP POLICY IF EXISTS "Allow Public Update" ON storage.objects;
+
+-- Allow anyone to upload files to the 'pdfs' bucket
+CREATE POLICY "Allow Public Uploads" ON storage.objects
+    FOR INSERT
+    TO public
+    WITH CHECK (bucket_id = 'pdfs');
+
+-- Allow anyone to read files from the 'pdfs' bucket
+CREATE POLICY "Allow Public Read" ON storage.objects
+    FOR SELECT
+    TO public
+    USING (bucket_id = 'pdfs');
+
+-- Allow anyone to delete files from the 'pdfs' bucket
+CREATE POLICY "Allow Public Delete" ON storage.objects
+    FOR DELETE
+    TO public
+    USING (bucket_id = 'pdfs');
+
+-- Allow anyone to update/replace files in the 'pdfs' bucket
+CREATE POLICY "Allow Public Update" ON storage.objects
+    FOR UPDATE
+    TO public
+    USING (bucket_id = 'pdfs');
+
