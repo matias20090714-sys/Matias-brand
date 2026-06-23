@@ -424,267 +424,255 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="ebook-block-card">
                             <h4>Semana 4: Ventas y Monetización</h4>
-                            <p>Lanza tus videos de conversión y ofertas. Atiende a los interesados por WhatsApp usando nuestras plantillas de mensajes. Cierra tus primeras ventas y entrega el acceso.</p>
-                        </div>
-                    </div>
-
-                    <div class="ebook-success-box">
-                        <h4 style="font-family:var(--font-title); font-weight:700; margin-bottom:10px;">Hábitos Clave para el Plan:</h4>
-                        <p style="font-size:0.9rem; color:var(--color-text-secondary); line-height:1.6;">
-                            1. Consistencia diaria (2 horas de trabajo enfocado).<br>
-                            2. Medición semanal de métricas (vistas, mensajes recibidos, cierres).<br>
-                            3. Ajustar contenido según la respuesta del público.<br>
-                            4. Mantener una mentalidad de aprendizaje activo.
-                        </p>
-                    </div>
-                `
-            }
-        ]
-    };
-
-    // ==========================================
+                            <div class="ebook-success-box">
+                                <h4 style="font-family:var(--font-title); font-weight:700; margin-bottom:10px;">Hábitos Clave para el Plan:</h4>
+                                <p style="font-size:0.9rem; color:var(--color-text-secondary); line-height:1.6;">
+                                    1. Consistencia diaria (2 horas de trabajo enfocado).<br>
+                                    2. Medición semanal de métricas (vistas, mensajes recibidos, cierres).<br>
+                                    3. Ajustar contenido según la respuesta del público.<br>
+     // ==========================================
     // 30 DAILY CONTENT IDEAS (ONE FOR EACH DAY)
     // ==========================================
     const dailyContentIdeas = [
         {
             day: 1,
             type: 'Vídeo Viral',
-            idea: 'Tu transformación personal al buscar la independencia financiera.',
-            hook: '“Cómo pasé de no tener un peso para mis salidas a crear mi propio negocio digital antes de los 20.”',
-            body: 'Cuenta tu historia honesta: la frustración de depender de tus padres, el descubrimiento de las habilidades digitales, y cómo decidiste empezar. Muestra clips tuyos trabajando con tu laptop o celular.',
-            cta: '“Escríbeme por WhatsApp al link de mi biografía y te paso el acceso a la biblioteca de recursos para que empieces gratis.”'
+            idea: 'Cómo aprender habilidades digitales te cambia la vida sin gastar una fortuna.',
+            hook: '“Pasé de estar estancado y sin saber qué hacer a aprender habilidades digitales y generar ingresos desde casa.”',
+            body: 'Cuenta cómo el conocimiento práctico es más valioso que una carrera tradicional hoy en día. Muestra de fondo la pantalla del portal privado donde estudias la guía digital.',
+            cta: '“Toca el enlace de mi perfil, mándame un WhatsApp para adquirir tu acceso al infoproducto y te activo la cuenta hoy mismo.”'
         },
         {
             day: 2,
             type: 'Vídeo de Valor',
-            idea: 'La regla de oro del marketing de contenidos en redes sociales.',
-            hook: '“Si estás subiendo contenido y nadie te compra, probablemente no estás aplicando la regla del 80/20.”',
-            body: 'Explica que el 80% de tus publicaciones deben educar, entretener o inspirar, y solo el 20% debe ser para vender directamente. Da un ejemplo de qué publicar en cada porcentaje.',
-            cta: '“Regístrate gratis en mi plataforma y lee el Capítulo 5 de mi e-book para aprender a estructurar tu contenido.”'
+            idea: 'Por qué vender infoproductos es el modelo de negocio más rentable.',
+            hook: '“El negocio digital con un 90% de ganancia neta que puedes empezar esta misma tarde.”',
+            body: 'Explica que los infoproductos son conocimiento digital. No tienen costos de envío ni de stock. Muestra la biblioteca privada de PDFs y cómo accedes al material interactivo al instante.',
+            cta: '“Si quieres aprender a venderlos y adquirir la guía completa, envíame un WhatsApp para coordinar tu pago y darte de alta.”'
         },
         {
             day: 3,
             type: 'Vídeo de Conversión',
-            idea: 'Oferta directa del infoproducto "De Cero a Ingresos Online".',
-            hook: '“¿Quieres aprender habilidades digitales pero no sabes por dónde empezar?”',
-            body: 'Presenta el e-book "De Cero a Ingresos Online". Explica que reúne 10 capítulos paso a paso sobre mentalidad, marca personal, ventas por WhatsApp y un plan de acción de 30 días.',
-            cta: '“Haz clic en el botón QUIERO EMPEZAR en el enlace de mi perfil para enviarme un WhatsApp y darte acceso inmediato.”'
+            idea: 'Presentación oficial de nuestra plataforma de estudio y el infoproducto.',
+            hook: '“Esta es la plataforma privada de miembros a la que accedes cuando compras nuestra guía de habilidades digitales.”',
+            body: 'Muestra en la pantalla cómo es el portal por dentro: los PDFs interactivos, las ideas de contenido de video diaria y las plantillas. Explica que la compra es externa y el acceso es manual.',
+            cta: '“Escríbeme al botón de WhatsApp en mi perfil, realiza tu pago externo y te daré de alta en el portal de inmediato.”'
         },
         {
             day: 4,
             type: 'Carrusel Educativo',
-            idea: '3 errores fatales en la biografía de Instagram que te cuestan ventas.',
-            hook: '“Tu biografía de Instagram está perdiendo clientes por culpa de esto...”',
-            body: 'Desarrolla 3 puntos: 1) Foto de perfil poco profesional o borrosa. 2) No explicar a quién ayudas y qué ofreces. 3) No tener un enlace directo a WhatsApp.',
-            cta: '“Accede a la plataforma y revisa el Capítulo 4 de la guía para ver ejemplos de bios de afiliados de alta conversión.”'
+            idea: 'Las 3 habilidades que te pagan las cuentas este año.',
+            hook: '“3 habilidades digitales que deberías estar aprendiendo en lugar de perder el tiempo scrolleando.”',
+            body: 'Desarrolla 3 diapositivas: 1) Creación de contenido con ganchos persuasivos. 2) Cierre de ventas por WhatsApp. 3) Estructuración de ofertas digitales. Explica que la guía enseña las tres.',
+            cta: '“Adquiere el infoproducto enviándome un mensaje para realizar tu pago y habilitar tu usuario en la plataforma.”'
         },
         {
             day: 5,
             type: 'Vídeo de Valor',
-            idea: 'Cómo elegir un nicho rentable en internet sin experiencia.',
-            hook: '“El error número uno al empezar un negocio digital es intentar venderle a todo el mundo.”',
-            body: 'Explica el concepto del nicho: la intersección entre lo que sabes hacer bien, lo que te apasiona y lo que el mercado está dispuesto a comprar. Diles que apunten a un nicho específico.',
-            cta: '“Entra a mi biblioteca privada, regístrate y lee el Capítulo 3 de la guía paso a paso.”'
+            idea: 'Por qué el acceso ordenado a la información te ahorra meses de frustración.',
+            hook: '“La información gratis en internet te tiene confundido. Por esto pagar por una guía estructurada te ahorra tiempo.”',
+            body: 'Explica que buscar tutoriales sueltos en YouTube te hace perder meses. Un infoproducto bien diseñado te da la ruta exacta de la A a la Z, paso a paso y sin desvíos.',
+            cta: '“Escríbeme por WhatsApp, adquiere la guía y te apruebo el acceso al portal VIP hoy mismo.”'
         },
         {
             day: 6,
             type: 'Vídeo Viral',
-            idea: 'Derribando el mito de que necesitas una computadora para emprender.',
-            hook: '“¿Crees que necesitas una computadora cara para empezar a generar ingresos online?”',
-            body: 'Muestra tu celular. Explica que hoy en día puedes crear contenidos, gestionar perfiles, editar videos con CapCut y cerrar ventas por WhatsApp únicamente usando tu celular.',
-            cta: '“Escríbeme por WhatsApp y te muestro cómo mis alumnos aprobados estudian directamente desde su teléfono.”'
+            idea: 'Aprender y facturar usando solo tu teléfono celular.',
+            hook: '“¿Pensabas que necesitabas una PC potente o cámaras caras para iniciar tu propio negocio de infoproductos?”',
+            body: 'Muestra tu celular. Explica que la plataforma está optimizada para móviles: puedes leer el e-book, sacar ideas de video diarias y cerrar ventas de forma externa usando solo tu teléfono.',
+            cta: '“Mándame un WhatsApp para unirte al portal privado y te guiaré en la compra externa para habilitarte.”'
         },
         {
             day: 7,
             type: 'Vídeo de Conversión',
-            idea: 'El valor del acompañamiento uno a uno en negocios digitales.',
-            hook: '“La razón por la que la mayoría falla en internet es que intentan hacerlo solos y sin guía.”',
-            body: 'Explica que al adquirir el e-book "De Cero a Ingresos Online" no solo recibes un archivo, sino acceso a una comunidad privada de apoyo y clases en vivo para resolver dudas conmigo.',
-            cta: '“Toca el botón QUIERO EMPEZAR en mi web y hablemos directamente por WhatsApp para darte de alta.”'
+            idea: 'El plan de acción de 30 días incluido en el e-book.',
+            hook: '“El paso a paso exacto para vender tu primer infoproducto y generar ingresos en tus primeros 30 días.”',
+            body: 'Explica que el Capítulo 10 contiene un plan diario estructurado por semanas. No tienes que inventar nada, solo seguir el cronograma, publicar y atender a los clientes interesados.',
+            cta: '“Toca el enlace de mi perfil, haz tu pago y te daré acceso inmediato a la guía y el plan de acción.”'
         },
         {
             day: 8,
             type: 'Vídeo de Valor',
-            idea: 'Qué responder cuando un cliente te dice "es muy caro".',
-            hook: '“Si te dicen que tu producto es muy caro, esto es lo que debes responder en WhatsApp...”',
-            body: 'Explica que "es muy caro" significa "no entiendo tu valor". Enséñales a validar la objeción: "Entiendo tu duda, pero ten en cuenta que no pagas por un archivo, sino por el tiempo y la estructura que te vas a ahorrar".',
-            cta: '“El Capítulo 8 de la plataforma tiene plantillas completas de mensajes de cierre. Regístrate para verlas.”'
+            idea: 'La clave para vender infoproductos sin parecer pesado.',
+            hook: '“El error que estás cometiendo en redes sociales al intentar vender tu infoproducto.”',
+            body: 'Explica que no debes rogar que te compren. Debes aportar valor y resolver un problema (por ejemplo, cómo aprender a editar o cómo estructurar un perfil). La venta se da sola cuando ofreces ayuda.',
+            cta: '“Adquiere la guía de ventas escribiéndome por WhatsApp para habilitar tu acceso al portal.”'
         },
         {
             day: 9,
             type: 'Vídeo Viral',
-            idea: 'Los 3 hábitos diarios que cambiaron mi productividad.',
-            hook: '“Trabajar más horas no te hará ganar más dinero. Te lo demuestro.”',
-            body: 'Habla de: 1) Time blocking (bloques de 90 min de trabajo profundo). 2) Las mañanas sagradas (2 horas sin mirar redes). 3) Priorizar solo 3 tareas clave al día.',
-            cta: '“El Capítulo 9 detalla mi rutina diaria completa. Accede gratis registrándote en mi web.”'
+            idea: 'Mentalidad de inversión vs gasto hormiga.',
+            hook: '“Si gastas en salidas de fin de semana pero dices que no tienes dinero para educarte, tus prioridades están mal.”',
+            body: 'Contrapone el gasto efímero que dura un día frente a la inversión en una guía digital que te enseña habilidades aplicables de por vida para generar flujos de ingresos estables.',
+            cta: '“Escríbeme por WhatsApp, haz tu pago por transferencia y te apruebo tu usuario en el acto.”'
         },
         {
             day: 10,
             type: 'Vídeo de Valor',
-            idea: 'Cómo funciona el ciclo de conversión en el marketing digital.',
-            hook: '“Este es el proceso exacto que sigue un seguidor antes de comprarte.”',
-            body: 'Explica brevemente las 4 etapas: Atención (contenido viral), Confianza (contenido de valor y testimonios), Conversión (oferta directa) y Fidelización (post-venta).',
-            cta: '“Mira el diagrama interactivo del Capítulo 2 ingresando a la plataforma de miembros.”'
+            idea: 'Cómo revender infoproductos de manera externa con altos márgenes.',
+            hook: '“Cómo ganar dinero revendiendo un infoproducto que tú mismo usas para estudiar.”',
+            body: 'Explica que una vez que estudias y entiendes las habilidades de nuestra guía, puedes comercializar el acceso de manera externa, cobrando directo a tu cuenta y dándole soporte a tus clientes.',
+            cta: '“Toca el link de la web para contactarme, compra el e-book y empieza a revender con nuestra estructura.”'
         },
         {
             day: 11,
             type: 'Vídeo de Conversión',
-            idea: 'Testimonio o caso de éxito de un alumno de la plataforma.',
-            hook: '“Cómo Franco pasó de ver videos sueltos en YouTube a conseguir sus primeros clientes en 30 días.”',
-            body: 'Muestra o lee el testimonio de Franco Pérez. Resalta que la diferencia fue el orden de la capacitación y el soporte diario.',
-            cta: '“Únete tú también. Escríbeme por WhatsApp al número de la web y te daré los detalles de ingreso.”'
+            idea: 'Por qué este sistema funciona incluso si empiezas desde cero absoluto.',
+            hook: '“No necesitas tener miles de seguidores ni experiencia previa en ventas para monetizar habilidades digitales.”',
+            body: 'Explica que el infoproducto está estructurado para principiantes. Te enseña cómo optimizar tu perfil desde cero, qué decir en los videos y cómo llevar a los interesados a tu WhatsApp.',
+            cta: '“Escríbeme por WhatsApp, adquiere tu membresía externa y actívate en nuestro portal hoy.”'
         },
         {
             day: 12,
             type: 'Vídeo de Valor',
-            idea: 'La diferencia entre prospección y molestar a desconocidos.',
-            hook: '“Por favor, deja de mandar spam a personas que no te conocen. Haz esto en su lugar.”',
-            body: 'Explica que debes interactuar con stories, responder comentarios y aportar valor en comunidades de tu nicho. Genera relaciones antes de ofrecer nada.',
-            cta: '“Aprende el método correcto en el Capítulo 7 de nuestro portal privado.”'
+            idea: 'Los costos ocultos de los negocios físicos vs infoproductos.',
+            hook: '“Por qué crear un negocio físico te puede arruinar y por qué los infoproductos son la salvación.”',
+            body: 'Detalla los costos: alquiler, stock, luz, empleados. En cambio, vender accesos al portal de infoproductos tiene cero costo de distribución física. Todo el dinero de la venta va directo a tu bolsillo.',
+            cta: '“Únete a nuestra plataforma privada comprando tu acceso por WhatsApp.”'
         },
         {
             day: 13,
             type: 'Vídeo Viral',
-            idea: 'Un día en la vida de un emprendedor digital remoto.',
-            hook: '“Cómo es un día cualquiera trabajando desde mi casa o desde un café.”',
-            body: 'Muestra clips rápidos: despertándote sin alarmas estridentes, desayunando tranquilo, trabajando 2 horas en tu laptop o celular, editando contenidos. Resalta la libertad geográfica.',
-            cta: '“Si quieres aprender a hacer esto desde cero, regístrate en mi plataforma hoy mismo.”'
+            idea: 'Tour rápido por la biblioteca digital de miembros.',
+            hook: '“Mira cómo es el portal privado por dentro al cual accedes tras verificar tu pago.”',
+            body: 'Graba tu pantalla mostrando el visor de PDFs integrado, los ebooks interactivos de habilidades y la sección de ideas de video diarias. Destaca que es un entorno cerrado sin publicidad.',
+            cta: '“Mándame un WhatsApp para adquirir el infoproducto de forma externa y dar de alta tu cuenta.”'
         },
         {
             day: 14,
             type: 'Vídeo de Valor',
-            idea: 'Los 3 tipos de videos que debes subir para crecer y vender.',
-            hook: '“Si solo subes videos virales, tendrás seguidores pero no dinero. Si solo vendes, te dejarán de seguir.”',
-            body: 'Explica la combinación: Viral (atrae), Valor (construye confianza) y Conversión (cierra la venta).',
-            cta: '“Encuentra guiones para cada tipo de video en el Capítulo 5 de la biblioteca de recursos.”'
+            idea: 'Los capítulos clave del e-book que debes leer primero.',
+            hook: '“Si compras nuestro infoproducto hoy, ve directo a estos 3 capítulos específicos.”',
+            body: 'Menciona: Capítulo 3 (Mentalidad y foco), Capítulo 6 (Fórmula de videos persuasivos) y Capítulo 9 (Cierre de ventas e interacción por WhatsApp). Explica qué valor práctico aporta cada uno.',
+            cta: '“Obtén tu copia digital y tu cuenta del portal escribiéndome al link de WhatsApp.”'
         },
         {
             day: 15,
             type: 'Vídeo de Conversión',
-            idea: 'El plan de acción de 30 días para lanzar tu proyecto.',
-            hook: '“¿Listo para lanzar tu proyecto digital y monetizarlo en los próximos 30 días?”',
-            body: 'Presenta el plan de acción estructurado por semanas: Semana 1 (bases), Semana 2 (visibilidad), Semana 3 (confianza) y Semana 4 (monetización).',
-            cta: '“El plan detallado está en el Capítulo 10 de mi e-book. Toca el botón QUIERO EMPEZAR para comenzar hoy.”'
+            idea: 'Cómo atraer prospectos gratis sin pagar publicidad.',
+            hook: '“Cómo lograr que personas interesadas te escriban preguntando por tu infoproducto sin gastar un centavo.”',
+            body: 'Explica el poder del tráfico orgánico mediante videos cortos (Reels/TikToks) optimizados con ganchos específicos que tocan los puntos de dolor de la audiencia y los dirigen a tu perfil.',
+            cta: '“Compra el infoproducto hoy escribiéndome al enlace de mi biografía y te activo el usuario.”'
         },
         {
             day: 16,
             type: 'Vídeo de Valor',
-            idea: 'Herramientas gratuitas para editar videos de forma profesional.',
-            hook: '“No necesitas programas de edición caros en tu computadora para crear videos virales.”',
-            body: 'Recomienda CapCut para celular. Destaca 3 funciones útiles: subtítulos automáticos, transiciones suaves y efectos de sonido dinámicos para captar retención.',
-            cta: '“Regístrate y ve la lista completa de herramientas recomendadas en el Capítulo 9 de la plataforma.”'
+            idea: 'Edición de video enfocada en vender, no en impresionar.',
+            hook: '“No necesitas efectos de Hollywood para vender. Necesitas una estructura que retenga la atención.”',
+            body: 'Explica que lo que vende es el mensaje, los subtítulos limpios y el ritmo dinámico. La guía te da plantillas exactas de ganchos que aumentan drásticamente el interés por el producto.',
+            cta: '“Aprende el método comprando la guía por WhatsApp y accediendo a la biblioteca hoy.”'
         },
         {
             day: 17,
             type: 'Vídeo Viral',
-            idea: 'La importancia de la disciplina sobre la motivación.',
-            hook: '“La motivación es mentira. Lo que realmente necesitas es disciplina.”',
-            body: 'Explica que la motivación dura pocos días. Los resultados se construyen en los días que trabajas sin tener ganas. La rutina y la disciplina vencen al talento.',
-            cta: '“Lee más sobre hábitos de mentalidad en el Capítulo 1 de nuestra biblioteca privada.”'
+            idea: 'La constancia vence al talento en el mundo digital.',
+            hook: '“Subir un video y rendirse no te va a dar libertad. Esto es lo que pasa si aplicas la guía por 30 días.”',
+            body: 'Muestra tu proceso de subida constante de contenido y cómo los registros en espera aumentan a diario a medida que la gente se interesa por comprar el acceso.',
+            cta: '“Comienza a construir tu negocio de infoproductos hoy mismo escribiendo a mi WhatsApp.”'
         },
         {
             day: 18,
             type: 'Carrusel Educativo',
-            idea: 'Estructura ganadora de un mensaje de bienvenida en WhatsApp Business.',
-            hook: '“Configura este mensaje de bienvenida automático en tu WhatsApp para no perder ningún cliente.”',
-            body: 'Estructura: 1) Saludo y agradecimiento. 2) Breve explicación de lo que ofreces o el link del recurso. 3) Pregunta de cierre para iniciar conversación.',
-            cta: '“Las plantillas exactas están en el Capítulo 8 de la biblioteca de recursos. Accede registrándote gratis.”'
+            idea: 'Cómo responder cuando te piden información de pago.',
+            hook: '“La plantilla exacta que uso para enviar mis datos de pago y cerrar ventas externas por WhatsApp.”',
+            body: 'Comparte la estructura del mensaje: confirmación de la vacante, opciones de pago (transferencia, saldo digital), instrucción de enviar comprobante y correo para dar de alta en la web.',
+            cta: '“Accede a todo el set de plantillas persuasivas comprando la guía en el enlace de la bio.”'
         },
         {
             day: 19,
             type: 'Vídeo de Valor',
-            idea: 'Cómo usar ChatGPT como tu asistente de contenidos.',
-            hook: '“Deja de pasar horas pensando qué publicar en tus redes. Pon a trabajar a la Inteligencia Artificial.”',
-            body: 'Muestra un prompt efectivo: “Actúa como un experto en marketing y dame 5 ganchos virales para un video sobre ventas digitales”. Muestra la velocidad de respuesta.',
-            cta: '“Encuentra una lista de prompts listos para usar en la sección de herramientas de nuestra plataforma.”'
+            idea: 'El rol de la confianza en las ventas uno a uno.',
+            hook: '“La gente no compra infoproductos a marcas fantasmas. Compra a personas reales en quienes confía.”',
+            body: 'Explica la importancia de humanizar tu perfil: hablar a la cámara, documentar tus estudios en el portal y responder los mensajes de WhatsApp con notas de voz para generar cercanía.',
+            cta: '“Haz tu pago externo, envíame tu comprobante y hablemos para darte tu acceso al portal VIP.”'
         },
         {
             day: 20,
             type: 'Vídeo de Conversión',
-            idea: 'Eliminando el miedo a vender en WhatsApp.',
-            hook: '“Vender por WhatsApp no es presionar ni rogar. Te explico cómo se hace.”',
-            body: 'Explica que vender es guiar a la persona hacia una solución. Haz preguntas sobre su situación actual, ofrece tu infoproducto como la solución y elimina el riesgo con soporte garantizado.',
-            cta: '“Toca el botón QUIERO EMPEZAR en la web y hablemos directamente por WhatsApp para activar tu membresía.”'
+            idea: 'Por qué la aprobación manual es una garantía de seguridad.',
+            hook: '“Por qué gestiono el acceso a mi portal de infoproductos de forma manual y verificando el pago.”',
+            body: 'Explica que al vender directamente por WhatsApp puedes verificar cada transferencia, asegurarte de que el usuario es real, y darle de alta manualmente para acompañarlo personalmente en su proceso.',
+            cta: '“Toca el botón QUIERO EMPEZAR, realiza tu pago externo y te daré de alta de inmediato.”'
         },
         {
             day: 21,
             type: 'Vídeo Viral',
-            idea: 'Tu primer paso en el emprendimiento digital sin inversión.',
-            hook: '“Cómo empecé en internet buscando generar mis propios ingresos sin depender de mis padres.”',
-            body: 'Cuenta tu historia: la necesidad de comprarte tus propias cosas y salidas, la investigación en redes, y la decisión de aprender marketing digital. Inspira a tomar acción.',
-            cta: '“Regístrate en mi plataforma en el link de mi perfil y accede a los contenidos gratuitos.”'
+            idea: 'El cambio de mentalidad frente al rechazo en ventas.',
+            hook: '“Si te da vergüenza vender o que te digan que no, nunca vas a poder generar ingresos por tu cuenta.”',
+            body: 'Explica que cada "no" te acerca más a un "sí". En el negocio digital de infoproductos, el volumen de interesados es tan alto que los rechazos son solo parte natural del camino al éxito.',
+            cta: '“Compra la guía hoy, supera tus miedos y accede al portal escribiéndome por WhatsApp.”'
         },
         {
             day: 22,
             type: 'Vídeo de Valor',
-            idea: '3 consejos rápidos de diseño para Canva.',
-            hook: '“Haz que tus imágenes de Canva dejen de parecer plantillas genéricas aplicando estos 3 tips.”',
-            body: 'Consejos: 1) Limítate a usar solo 2 tipografías. 2) Usa una paleta de 3 colores coherentes (ej: negro, blanco y verde). 3) Deja espacios vacíos para que el diseño respire.',
-            cta: '“Revisa el Capítulo 9 de herramientas de diseño en la plataforma de miembros.”'
+            idea: 'El embudo de ventas digital más simple del planeta.',
+            hook: '“El embudo de 3 pasos que uso para vender infoproductos todos los días de forma orgánica.”',
+            body: 'Muestra el flujo: 1) Video corto en Instagram/TikTok para generar curiosidad. 2) Enlace que redirige a WhatsApp. 3) Cierre por chat enviando datos de pago y activando su usuario en la web.',
+            cta: '“Aprende a replicar este embudo comprando la guía digital a través del link de mi perfil.”'
         },
         {
             day: 23,
             type: 'Vídeo de Conversión',
-            idea: 'Garantías y acompañamiento del infoproducto.',
-            hook: '“Si compras mi e-book y te trabas en el proceso, no estarás solo. Te explico por qué.”',
-            body: 'Menciona que la compra incluye acceso ilimitado a nuestra comunidad de apoyo en Telegram/WhatsApp y clases en vivo semanales para revisar tus redes y avances conmigo.',
-            cta: '“Haz clic en el enlace de mi perfil, regístrate y solicita acceso al grupo.”'
+            idea: 'Acompañamiento VIP para alumnos registrados.',
+            hook: '“Lo que obtienes al ingresar a nuestra biblioteca digital no es solo un PDF, es mentoría directa.”',
+            body: 'Habla de que además del lector online de ebooks, acceden al soporte directo por WhatsApp conmigo para resolver dudas de optimización de perfil o estrategias de ventas externas.',
+            cta: '“Regístrate en la web, envíame tu comprobante de pago por WhatsApp y te activo el usuario ahora.”'
         },
         {
             day: 24,
             type: 'Carrusel Educativo',
-            idea: 'La regla del gancho de los 3 segundos.',
-            hook: '“Si tus videos no atrapan en los primeros 3 segundos, estás perdiendo el 90% de tus vistas.”',
-            body: 'Explica que el cerebro hace scroll muy rápido. Necesitas un gancho visual (texto llamativo en pantalla) y auditivo (una frase contundente que despierte curiosidad).',
-            cta: '“El Capítulo 6 de redes sociales tiene una lista de ganchos virales. Míralos registrándote gratis.”'
+            idea: 'Ganchos auditivos y visuales de alta retención.',
+            hook: '“Si tus videos no tienen esto en los primeros 3 segundos, la gente los pasa de largo al instante.”',
+            body: 'Explica la importancia de usar un texto de gancho contrastante, un sonido en tendencia y un cambio de plano rápido. El Capítulo 6 de la guía detalla ejemplos que puedes copiar tal cual.',
+            cta: '“Adquiere el infoproducto escribiéndome para habilitar tu cuenta en el portal de estudio.”'
         },
         {
             day: 25,
             type: 'Vídeo de Valor',
-            idea: 'Cómo organizar tu día de trabajo en bloques (Time Blocking).',
-            hook: '“Cómo logro avanzar el trabajo de una semana en solo 3 horas diarias.”',
-            body: 'Muestra tu agenda o Notion. Explica que agrupas tareas similares en bloques de 90 minutos de enfoque total, sin interrupciones ni celular.',
-            cta: '“Encuentra plantillas de Notion de productividad en la pestaña de recursos de la plataforma.”'
+            idea: 'Control financiero básico de tu negocio de infoproductos.',
+            hook: '“Cómo llevo el control de mis ventas de infoproductos externas y la aprobación de mis alumnos.”',
+            body: 'Muestra cómo anotas en una planilla o Notion los datos de las personas que te compran externamente y cómo usas el Panel de Administrador de tu web para aprobar a cada usuario al instante.',
+            cta: '“Empieza tu propio negocio digital comprando el e-book hoy mismo a través del link de la bio.”'
         },
         {
             day: 26,
             type: 'Vídeo Viral',
-            idea: 'El cambio de mentalidad de buscar empleo a construir algo propio.',
-            hook: '“Por qué decidí dejar de buscar un trabajo tradicional y enfocarme en aprender habilidades digitales.”',
-            body: 'Compara: cumplir horarios fijos por un sueldo mínimo vs. la oportunidad de crecer tu propio negocio sin límites de ingresos y desde cualquier lugar. Inspira libertad.',
-            cta: '“Comienza a estudiar hoy mismo. Regístrate en mi plataforma en el link de mi perfil.”'
+            idea: 'Por qué el autoaprendizaje supera a la educación formal en la era digital.',
+            hook: '“Estudiar una carrera de 5 años ya no te garantiza un buen sueldo. Aprender habilidades digitales sí.”',
+            body: 'Compara el tiempo y el costo de una universidad tradicional con la agilidad de estudiar guías específicas enfocadas en habilidades monetizables en semanas y aplicarlas en tiempo real.',
+            cta: '“Compra tu acceso al portal de miembros enviándome un WhatsApp y comienza a estudiar hoy.”'
         },
         {
             day: 27,
             type: 'Vídeo de Conversión',
-            idea: 'Acceso directo a las plantillas de mensajes de cierre.',
-            hook: '“Te doy las plantillas exactas que utilizo para cerrar ventas por WhatsApp todos los días.”',
-            body: 'Menciona que el e-book "De Cero a Ingresos Online" incluye todas las plantillas para responder preguntas frecuentes y manejar objeciones de clientes interesados.',
-            cta: '“Toca el botón QUIERO EMPEZAR al final de mi web y te guiaré por WhatsApp para iniciar hoy.”'
+            idea: 'Eliminando la excusa del "No tengo tiempo para estudiar".',
+            hook: '“¿Crees que necesitas 8 horas al día para aprender habilidades digitales y generar ingresos?”',
+            body: 'Explica que la plataforma está pensada para personas ocupadas. Con solo dedicarle 30 minutos al día a leer un capítulo de la guía y aplicar la tarea del plan de acción verás resultados constantes.',
+            cta: '“Adquiere tu infoproducto de forma externa hoy y te apruebo tu acceso de inmediato.”'
         },
         {
             day: 28,
             type: 'Vídeo de Valor',
-            idea: 'Cómo optimizar las fotos de perfil en tus redes.',
-            hook: '“La foto de perfil de tu negocio digital está arruinando tu marca personal por esto...”',
-            body: 'Consejos: usa buena iluminación frontal, fondo liso contrastante, sonríe para generar confianza y encuadra desde los hombros hacia arriba. Evita fotos grupales o de cuerpo entero.',
-            cta: '“Encuentra ejemplos de perfiles optimizados en el Capítulo 4 de nuestra guía.”'
+            idea: 'Auditoría express de tu perfil para generar ventas.',
+            hook: '“Si tu perfil de Instagram tiene estas 3 fallas, estás ahuyentando a tus posibles clientes.”',
+            body: 'Menciona: 1) Foto de perfil poco profesional. 2) Biografía confusa que no dice a quién ayudas. 3) Falta de un enlace claro a WhatsApp. Explica que la guía incluye una sección completa de optimización.',
+            cta: '“Compra la guía, optimiza tus redes y te audito el perfil personalmente en nuestro chat privado.”'
         },
         {
             day: 29,
             type: 'Vídeo de Conversión',
-            idea: 'Última oportunidad para sumarse al cupo limitado.',
-            hook: '“Estamos cerrando los cupos de acompañamiento personalizado para esta semana.”',
-            body: 'Explica que limitas el número de alumnos aprobados para poder brindar soporte de calidad uno a uno y resolver dudas en el canal privado de forma ágil.',
-            cta: '“No dejes pasar más tiempo. Toca el link de mi biografía, regístrate y mándame un WhatsApp para arrancar.”'
+            idea: 'Por qué posponer tu educación te cuesta dinero real.',
+            hook: '“El costo real de no empezar hoy a aprender habilidades digitales y vender infoproductos.”',
+            body: 'Explica que cada día que dejas pasar sin aprender sobre el mundo digital es un día más de dependencia y frustración. La barrera de entrada para adquirir la guía es mínima y los beneficios son de por vida.',
+            cta: '“Toca el botón QUIERO EMPEZAR, escríbeme, haz tu pago y obtén tu activación manual en la web hoy.”'
         },
         {
             day: 30,
             type: 'Vídeo de Valor',
-            idea: 'Tu plan de acción resumido para el próximo mes.',
-            hook: '“Esto es lo que debes hacer si quieres construir tu negocio online en los próximos 30 días.”',
-            body: 'Resume el plan de 4 semanas: 1) Optimiza tu bio y nicho. 2) Publica contenido consistente de valor. 3) Atrae leads a WhatsApp. 4) Cierra ventas con respuestas automatizadas.',
-            cta: '“Tienes la guía completa y el acompañamiento en la plataforma. ¡Te veo adentro!”'
+            idea: 'Resumen de los pasos para lograr tu primera venta.',
+            hook: '“El mapa completo de 4 pasos para vender infoproductos externamente usando esta plataforma.”',
+            body: '1) Adquiere y estudia el e-book interactivo en el portal. 2) Recrea las ideas de video diarias. 3) Conversa con los interesados por WhatsApp. 4) Recibe el pago y pídele sus datos para registrarlo en la web.',
+            cta: '“Todo el conocimiento estructurado está esperándote en nuestro portal privado. ¡Te veo dentro!”'
         }
     ];
 
