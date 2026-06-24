@@ -1,10 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Initialize Supabase if keys are configured
+    // ==========================================
+    // MOBILE NAVIGATION MENU TOGGLE (Inicializado al principio para evitar fallos de carga)
+    // ==========================================
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('active');
+            });
+        });
+    }
+
+    // Initialize Supabase if keys are configured (protegido contra bloqueos de CDN)
     let supabase = null;
-    if (window.SUPABASE_URL && window.SUPABASE_KEY) {
+    if (window.SUPABASE_URL && window.SUPABASE_KEY && window.supabase) {
         supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);
         console.log("Supabase inicializado correctamente.");
+    } else {
+        console.warn("Supabase no pudo ser inicializado. La librería CDN de Supabase podría estar bloqueada.");
     }
 
     // ==========================================
@@ -2108,27 +2132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================
-    // MOBILE NAVIGATION MENU TOGGLE
-    // ==========================================
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
 
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('open');
-            navToggle.classList.toggle('active');
-        });
-
-        // Close menu when a link is clicked
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('open');
-                navToggle.classList.remove('active');
-            });
-        });
-    }
 
 });
 
