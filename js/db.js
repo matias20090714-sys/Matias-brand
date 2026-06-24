@@ -14,27 +14,37 @@ class PDFDatabase {
     }
 
     init() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(DB_NAME, DB_VERSION);
+        return new Promise((resolve) => {
+            if (typeof window === 'undefined' || !window.indexedDB) {
+                console.warn('IndexedDB no está soportado en este entorno/navegador.');
+                resolve(null);
+                return;
+            }
+            try {
+                const request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
-            request.onerror = (event) => {
-                console.error('Database failed to open:', event.target.error);
-                reject(event.target.error);
-            };
+                request.onerror = (event) => {
+                    console.warn('No se pudo abrir IndexedDB (probablemente por restricciones de privacidad):', event.target.error);
+                    resolve(null); // Resolvemos con null para no romper la app
+                };
 
-            request.onsuccess = (event) => {
-                this.db = event.target.result;
-                console.log('Database opened successfully');
-                resolve(this.db);
-            };
+                request.onsuccess = (event) => {
+                    this.db = event.target.result;
+                    console.log('Database opened successfully');
+                    resolve(this.db);
+                };
 
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains(STORE_NAME)) {
-                    db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-                    console.log('PDF object store created');
-                }
-            };
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                        console.log('PDF object store created');
+                    }
+                };
+            } catch (err) {
+                console.warn('Error capturado al intentar abrir IndexedDB:', err);
+                resolve(null);
+            }
         });
     }
 
@@ -46,51 +56,75 @@ class PDFDatabase {
     }
 
     async savePDF(pdf) {
-        const db = await this.getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.put(pdf);
+        try {
+            const db = await this.getDb();
+            if (!db) return false;
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put(pdf);
 
-            request.onsuccess = () => resolve(true);
-            request.onerror = (e) => reject(e.target.error);
-        });
+                request.onsuccess = () => resolve(true);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        } catch (e) {
+            console.error('Error al guardar PDF localmente:', e);
+            return false;
+        }
     }
 
     async getAllPDFs() {
-        const db = await this.getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readonly');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.getAll();
+        try {
+            const db = await this.getDb();
+            if (!db) return [];
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
 
-            request.onsuccess = () => resolve(request.result || []);
-            request.onerror = (e) => reject(e.target.error);
-        });
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        } catch (e) {
+            console.error('Error al obtener PDFs locales:', e);
+            return [];
+        }
     }
 
     async getPDF(id) {
-        const db = await this.getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readonly');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.get(id);
+        try {
+            const db = await this.getDb();
+            if (!db) return null;
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(id);
 
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = (e) => reject(e.target.error);
-        });
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        } catch (e) {
+            console.error('Error al obtener PDF local:', e);
+            return null;
+        }
     }
 
     async deletePDF(id) {
-        const db = await this.getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.delete(id);
+        try {
+            const db = await this.getDb();
+            if (!db) return true;
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(id);
 
-            request.onsuccess = () => resolve(true);
-            request.onerror = (e) => reject(e.target.error);
-        });
+                request.onsuccess = () => resolve(true);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        } catch (e) {
+            console.error('Error al eliminar PDF local:', e);
+            return true;
+        }
     }
 }
 
