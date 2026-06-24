@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            // Esperar a que el body exista si aún está cargando
+            var showErr = function() {
+                var div = document.getElementById('debug-error-banner');
+                if (!div) {
+                    div = document.createElement('div');
+                    div.id = 'debug-error-banner';
+                    div.style.position = 'fixed';
+                    div.style.top = '0';
+                    div.style.left = '0';
+                    div.style.width = '100%';
+                    div.style.background = '#ff2a2a';
+                    div.style.color = '#ffffff';
+                    div.style.padding = '15px';
+                    div.style.zIndex = '999999';
+                    div.style.fontSize = '14px';
+                    div.style.fontFamily = 'monospace';
+                    div.style.wordBreak = 'break-all';
+                    div.style.boxShadow = '0 5px 15px rgba(0,0,0,0.5)';
+                    document.body.appendChild(div);
+                }
+                div.innerHTML = '<strong>Error de JS detectado:</strong><br>' + message + '<br><small>Archivo: ' + source + ' | Línea: ' + lineno + ' | Col: ' + colno + '</small>' + (error && error.stack ? '<br><pre style="margin-top:10px; background:rgba(0,0,0,0.2); padding:8px; border-radius:4px; max-height:200px; overflow:auto; white-space:pre-wrap;">' + error.stack + '</pre>' : '');
+            };
+            if (document.body) {
+                showErr();
+            } else {
+                window.addEventListener('DOMContentLoaded', showErr);
+            }
+        };
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aprende habilidades digitales, marketing digital, ventas y redes sociales con Matías. Capacitación, comunidad y herramientas para desarrollarte desde cero.">
