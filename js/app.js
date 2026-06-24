@@ -22,6 +22,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // SCROLL ANIMATIONS (INTERSECTION OBSERVER)
+    // Inicializado al principio con fallback de seguridad para Webviews lentos
+    // ==========================================
+    const animatedElements = document.querySelectorAll('[data-animate]');
+    if ('IntersectionObserver' in window) {
+        const animationObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => {
+            animationObserver.observe(el);
+        });
+    } else {
+        animatedElements.forEach(el => {
+            el.classList.add('animated');
+        });
+    }
+
+    // Fallback de seguridad: si pasados 1000ms algún elemento con [data-animate]
+    // no se ha animado (p. ej. por fallos en viewport/in-app browsers), se fuerza su visibilidad.
+    setTimeout(() => {
+        document.querySelectorAll('[data-animate]:not(.animated)').forEach(el => {
+            el.classList.add('animated');
+        });
+    }, 1000);
+
     // Initialize Supabase if keys are configured (protegido contra bloqueos de CDN)
     let supabase = null;
     if (window.SUPABASE_URL && window.SUPABASE_KEY && window.supabase) {
@@ -2106,31 +2141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call updateHeaderAuthActions on load to reflect auth state
     updateHeaderAuthActions();
 
-    // ==========================================
-    // SCROLL ANIMATIONS (INTERSECTION OBSERVER)
-    // ==========================================
-    const animatedElements = document.querySelectorAll('[data-animate]');
-    if ('IntersectionObserver' in window) {
-        const animationObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
 
-        animatedElements.forEach(el => {
-            animationObserver.observe(el);
-        });
-    } else {
-        animatedElements.forEach(el => {
-            el.classList.add('animated');
-        });
-    }
 
 
 
