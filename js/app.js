@@ -489,7 +489,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                     1. Consistencia diaria (2 horas de trabajo enfocado).<br>
                                     2. Medición semanal de métricas (vistas, mensajes recibidos, cierres).<br>
                                     3. Ajustar contenido según la respuesta del público.<br>
-     // ==========================================
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ]
+    };
+
+    // ==========================================
     // 30 DAILY CONTENT IDEAS (ONE FOR EACH DAY)
     // ==========================================
     const dailyContentIdeas = [
