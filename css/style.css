@@ -349,6 +349,7 @@ ul {
     border: none;
     cursor: pointer;
     z-index: 1001;
+    touch-action: manipulation;
 }
 
 .nav-toggle .bar {
@@ -357,6 +358,23 @@ ul {
     background-color: var(--color-text-primary);
     border-radius: 10px;
     transition: var(--transition-bounce);
+    transform-origin: center;
+}
+
+/* Animación de Hamburguesa a X cuando está activo */
+.nav-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background-color: var(--color-primary);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: var(--color-primary);
 }
 
 /* Outline button (for Login btn) */
