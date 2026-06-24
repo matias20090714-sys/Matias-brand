@@ -967,6 +967,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('hashchange', () => { spaRouter(); });
     window.addEventListener('load', () => { spaRouter(); });
+    
+    // Ejecutar spaRouter inmediatamente para inicializar la vista sin esperar a que carguen todas las imágenes externas
+    spaRouter();
 
     // ==========================================
     // AUTHENTICATION FORMS LOGIC
